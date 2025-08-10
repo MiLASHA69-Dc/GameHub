@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Test</title>
+</head>
+<body>
+    <h2>Testing GameHub Images</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 20px;">
+        <div>
+            <h3>Placeholder Images</h3>
+            <img src="assets/placeholder.php?width=280&height=200&text=Lords+of+the+Fallen&bg=333333" alt="Lords of the Fallen" style="width: 280px; height: 200px;">
+            <p>Lords of the Fallen</p>
+        </div>
+        
+        <div>
+            <img src="assets/placeholder.php?width=280&height=200&text=Mystery+Box&bg=6a4c93" alt="Mystery Box" style="width: 280px; height: 200px;">
+            <p>Mystery Box Bundle</p>
+        </div>
+        
+        <div>
+            <img src="assets/placeholder.php?width=280&height=200&text=Lords+Deluxe&bg=2d5016" alt="Lords Deluxe" style="width: 280px; height: 200px;">
+            <p>Lords of the Fallen Deluxe</p>
+        </div>
+        
+        <div>
+            <img src="assets/images/oblivion.jpg" alt="Oblivion" style="width: 280px; height: 200px; object-fit: cover;">
+            <p>The Elder Scrolls IV: Oblivion (Real Image)</p>
+        </div>
+        
+        <div>
+            <img src="assets/placeholder.php?width=280&height=200&text=Build+Bundle&bg=ff8c00" alt="Build Bundle" style="width: 280px; height: 200px;">
+            <p>Build Your Own Bundle</p>
+        </div>
+        
+        <div>
+            <img src="assets/placeholder.php?width=280&height=200&text=VIP+Mystery&bg=4b0082" alt="VIP Mystery" style="width: 280px; height: 200px;">
+            <p>VIP Mystery Bundle</p>
+        </div>
+    </div>
+    
+    <div style="padding: 20px;">
+        <h3>Test Error Handling</h3>
+        <img src="nonexistent-image.jpg" alt="This should show fallback" 
+             style="width: 280px; height: 200px; background: #333; color: white; display: flex; align-items: center; justify-content: center;"
+             onerror="this.style.background='linear-gradient(45deg, #333, #555)'; this.innerHTML='🎮<br>Image Not Found';">
+    </div>
+    
+    <p><a href="index.html">← Back to GameHub</a></p>
+</body>
+</html>
