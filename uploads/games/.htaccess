@@ -1,0 +1,6 @@
+# Protect uploaded files
+Options -Indexes
+# Prevent execution of scripts
+<Files *.php>
+    Deny from all
+</Files>

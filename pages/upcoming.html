@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Games - GameHub</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+            </a>
+
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="bundles.html" class="nav-link">Bundles</a>
+                <a href="upcoming.html" class="nav-link">Upcoming Games</a>
+                <a href="new-releases.html" class="nav-link">New Releases</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="upcoming-hero">
+        <div class="hero-content">
+            <h1>Upcoming Games</h1>
+            <p>Pre-order the hottest games before they launch and get exclusive deals</p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterByMonth('all')">All Upcoming</button>
+                <button class="filter-tab" onclick="filterByMonth('this-month')">This Month</button>
+                <button class="filter-tab" onclick="filterByMonth('next-month')">Next Month</button>
+                <button class="filter-tab" onclick="filterByMonth('q1-2025')">Q1 2025</button>
+                <button class="filter-tab" onclick="filterByMonth('q2-2025')">Q2 2025</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Games Grid -->
+    <section class="upcoming-games">
+        <div class="container">
+            <div class="games-grid" id="upcomingGamesGrid">
+                <!-- Games will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-order Modal -->
+    <div id="preorderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('preorderModal')">&times;</span>
+            <h2>Pre-order Game</h2>
+            <div id="preorderContent">
+                <!-- Pre-order details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/main.js"></script>
+    <script>
+        const upcomingGames = [
+            {
+                id: 1,
+                title: "Starfield: Shattered Space",
+                releaseDate: "2025-03-15",
+                price: 59.99,
+                preorderPrice: 49.99,
+                discount: 17,
+                image: "https://via.placeholder.com/400x300/1a1a2e/fff?text=Starfield+DLC",
+                developer: "Bethesda Game Studios",
+                genre: "RPG, Space Exploration",
+                platforms: ["Windows", "Xbox"],
+                description: "Explore a mysterious space station in this major expansion to Starfield.",
+                features: ["New storyline", "40+ hours of content", "New planets to explore"],
+                status: "Pre-order available",
+                category: "q1-2025"
+            },
+            {
+                id: 2,
+                title: "Hollow Knight: Silksong",
+                releaseDate: "2025-04-22",
+                price: 39.99,
+                preorderPrice: 34.99,
+                discount: 13,
+                image: "https://via.placeholder.com/400x300/6a4c93/fff?text=Silksong",
+                developer: "Team Cherry",
+                genre: "Metroidvania, Platformer",
+                platforms: ["Windows", "Mac", "Linux"],
+                description: "Play as Hornet in this highly anticipated sequel to Hollow Knight.",
+                features: ["New protagonist", "150+ new enemies", "Silk abilities"],
+                status: "Pre-order available",
+                category: "q2-2025"
+            },
+            {
+                id: 3,
+                title: "Elder Scrolls VI",
+                releaseDate: "2025-11-11",
+                price: 69.99,
+                preorderPrice: 59.99,
+                discount: 14,
+                image: "https://via.placeholder.com/400x300/8b0000/fff?text=Elder+Scrolls+VI",
+                developer: "Bethesda Game Studios",
+                genre: "RPG, Open World",
+                platforms: ["Windows"],
+                description: "The next chapter in the legendary Elder Scrolls saga.",
+                features: ["Massive open world", "New engine", "Epic storyline"],
+                status: "Coming soon",
+                category: "q2-2025"
+            },
+            {
+                id: 4,
+                title: "GTA VI",
+                releaseDate: "2025-09-12",
+                price: 79.99,
+                preorderPrice: 69.99,
+                discount: 13,
+                image: "https://via.placeholder.com/400x300/2d5016/fff?text=GTA+VI",
+                developer: "Rockstar Games",
+                genre: "Action, Open World",
+                platforms: ["Windows"],
+                description: "Return to Vice City in the most ambitious GTA game ever created.",
+                features: ["Dual protagonists", "Enhanced graphics", "Massive world"],
+                status: "Pre-order available",
+                category: "q2-2025"
+            },
+            {
+                id: 5,
+                title: "Cyberpunk 2077: Phantom Liberty DLC",
+                releaseDate: "2025-02-28",
+                price: 29.99,
+                preorderPrice: 24.99,
+                discount: 17,
+                image: "https://via.placeholder.com/400x300/ff8c00/fff?text=Phantom+Liberty",
+                developer: "CD Projekt RED",
+                genre: "RPG, Cyberpunk",
+                platforms: ["Windows"],
+                description: "A spy-thriller expansion featuring Keanu Reeves.",
+                features: ["20+ hours content", "New district", "Enhanced AI"],
+                status: "Pre-order available",
+                category: "this-month"
+            },
+            {
+                id: 6,
+                title: "Minecraft Legends",
+                releaseDate: "2025-03-08",
+                price: 39.99,
+                preorderPrice: 34.99,
+                discount: 13,
+                image: "https://via.placeholder.com/400x300/4b0082/fff?text=Minecraft+Legends",
+                developer: "Mojang Studios",
+                genre: "Strategy, Adventure",
+                platforms: ["Windows", "Mac"],
+                description: "A new action strategy game set in the Minecraft universe.",
+                features: ["Real-time strategy", "Co-op campaign", "PvP battles"],
+                status: "Pre-order available",
+                category: "next-month"
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUpcomingGames(upcomingGames);
+        });
+
+        function loadUpcomingGames(games) {
+            const grid = document.getElementById('upcomingGamesGrid');
+            grid.innerHTML = '';
+
+            games.forEach(game => {
+                const gameCard = createUpcomingGameCard(game);
+                grid.appendChild(gameCard);
+            });
+        }
+
+        function createUpcomingGameCard(game) {
+            const card = document.createElement('div');
+            card.className = 'upcoming-game-card';
+            
+            const releaseDate = new Date(game.releaseDate);
+            const formattedDate = releaseDate.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            const daysUntilRelease = Math.ceil((releaseDate - new Date()) / (1000 * 60 * 60 * 24));
+            
+            card.innerHTML = `
+                <div class="game-image">
+                    <img src="${game.image}" alt="${game.title}">
+                    <div class="release-badge">${daysUntilRelease} days</div>
+                    ${game.discount > 0 ? `<div class="discount-badge">-${game.discount}%</div>` : ''}
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">${game.title}</h3>
+                    <p class="game-developer">by ${game.developer}</p>
+                    <p class="game-genre">${game.genre}</p>
+                    <p class="release-date">Release: ${formattedDate}</p>
+                    
+                    <div class="platforms">
+                        ${game.platforms.map(platform => 
+                            `<span class="platform-tag">${platform}</span>`
+                        ).join('')}
+                    </div>
+                    
+                    <div class="game-features">
+                        ${game.features.map(feature => 
+                            `<span class="feature-bullet">• ${feature}</span>`
+                        ).join('')}
+                    </div>
+                    
+                    <div class="game-price">
+                        <span class="preorder-price">$${game.preorderPrice}</span>
+                        <span class="original-price">$${game.price}</span>
+                    </div>
+                    
+                    <div class="game-actions">
+                        <button class="btn btn-primary" onclick="showPreorderModal(${game.id})">
+                            <i class="fas fa-calendar-plus"></i> Pre-order Now
+                        </button>
+                        <button class="btn btn-secondary" onclick="addToWishlist(${game.id})">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="status-badge ${game.status.toLowerCase().replace(/ /g, '-')}">${game.status}</div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function filterByMonth(category) {
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter games
+            let filteredGames = upcomingGames;
+            
+            if (category !== 'all') {
+                filteredGames = upcomingGames.filter(game => game.category === category);
+            }
+            
+            loadUpcomingGames(filteredGames);
+        }
+
+        function showPreorderModal(gameId) {
+            const game = upcomingGames.find(g => g.id === gameId);
+            const modal = document.getElementById('preorderModal');
+            const content = document.getElementById('preorderContent');
+            
+            content.innerHTML = `
+                <div class="preorder-details">
+                    <img src="${game.image}" alt="${game.title}" class="preorder-image">
+                    <div class="preorder-info">
+                        <h3>${game.title}</h3>
+                        <p class="preorder-description">${game.description}</p>
+                        <div class="preorder-price-info">
+                            <span class="preorder-label">Pre-order Price:</span>
+                            <span class="preorder-price">$${game.preorderPrice}</span>
+                            <span class="original-price">$${game.price}</span>
+                            <span class="savings">Save $${(game.price - game.preorderPrice).toFixed(2)}</span>
+                        </div>
+                        <div class="preorder-benefits">
+                            <h4>Pre-order Benefits:</h4>
+                            <ul>
+                                <li>Early access (3 days before release)</li>
+                                <li>Exclusive in-game content</li>
+                                <li>Digital soundtrack</li>
+                                <li>No additional charges until release</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary btn-full" onclick="confirmPreorder(${game.id})">
+                            Confirm Pre-order
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function confirmPreorder(gameId) {
+            alert(`Pre-order confirmed for game ${gameId}!`);
+            closeModal('preorderModal');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function addToWishlist(gameId) {
+            alert(`Added upcoming game ${gameId} to wishlist!`);
+        }
+
+        function toggleAccountMenu() {
+            const menu = document.getElementById('accountMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
+    <style>
+        .upcoming-hero {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .upcoming-hero h1 {
+            color: var(--text-primary);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .upcoming-hero p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .filter-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .filter-tab {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: var(--primary-orange);
+            border-color: var(--primary-orange);
+            color: white;
+        }
+
+        .upcoming-games {
+            padding: 4rem 2rem;
+            background: var(--dark-bg);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .upcoming-game-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .game-image {
+            position: relative;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .release-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .game-info {
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .game-title {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .game-developer {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .game-genre {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .release-date {
+            color: var(--primary-orange);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .platforms {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .platform-tag {
+            background: var(--darker-bg);
+            color: var(--text-secondary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        .game-features {
+            margin-bottom: 1rem;
+        }
+
+        .feature-bullet {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .game-price {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .preorder-price {
+            color: var(--primary-orange);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .original-price {
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+
+        .game-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--success-green);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .status-badge.coming-soon {
+            background: var(--warning-yellow);
+            color: var(--dark-bg);
+        }
+
+        .preorder-details {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .preorder-image {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .preorder-info h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .preorder-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .preorder-price-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .preorder-label {
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .preorder-price {
+            color: var(--primary-orange);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .savings {
+            background: var(--success-green);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .preorder-benefits h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .preorder-benefits ul {
+            color: var(--text-secondary);
+            padding-left: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .filter-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .preorder-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <style>
+        /* Login Button Styling */
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+            color: white;
+        }
+    </style>
+
+    <script>
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            if (searchTerm.trim()) {
+                window.location.href = `../index.html?search=${encodeURIComponent(searchTerm)}`;
+            }
+        }
+
+        document.getElementById('searchInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - GameHub</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+            </a>
+
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="bundles.html" class="nav-link">Bundles</a>
+                <a href="upcoming.html" class="nav-link">Upcoming Games</a>
+                <a href="new-releases.html" class="nav-link">New Releases</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Orders Dashboard -->
+    <section class="orders-dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <h1>My Orders</h1>
+                    <p>Track and manage your game purchases</p>
+                </div>
+                <div class="orders-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-shopping-bag"></i>
+                        <div class="stat-content">
+                            <span class="stat-number">24</span>
+                            <span class="stat-label">Total Orders</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-gamepad"></i>
+                        <div class="stat-content">
+                            <span class="stat-number">127</span>
+                            <span class="stat-label">Games Owned</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div class="stat-content">
+                            <span class="stat-number">$1,247</span>
+                            <span class="stat-label">Total Spent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Filters -->
+            <div class="order-filters">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterOrders('all')">All Orders</button>
+                    <button class="filter-tab" onclick="filterOrders('completed')">Completed</button>
+                    <button class="filter-tab" onclick="filterOrders('processing')">Processing</button>
+                    <button class="filter-tab" onclick="filterOrders('refunded')">Refunded</button>
+                </div>
+                
+                <div class="filter-controls">
+                    <select class="filter-select" onchange="sortOrders(this.value)">
+                        <option value="date-desc">Newest First</option>
+                        <option value="date-asc">Oldest First</option>
+                        <option value="amount-desc">Highest Amount</option>
+                        <option value="amount-asc">Lowest Amount</option>
+                    </select>
+                    
+                    <div class="date-range">
+                        <input type="date" class="date-input" placeholder="From">
+                        <span>to</span>
+                        <input type="date" class="date-input" placeholder="To">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders List -->
+            <div class="orders-list" id="ordersList">
+                <!-- Orders will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Details Modal -->
+    <div id="orderModal" class="modal hidden">
+        <div class="modal-content order-details-modal">
+            <span class="close" onclick="closeOrderModal()">&times;</span>
+            <div class="modal-header">
+                <h2>Order Details</h2>
+                <div class="order-actions">
+                    <button class="btn btn-secondary" onclick="downloadInvoice()">
+                        <i class="fas fa-download"></i> Download Invoice
+                    </button>
+                    <button class="btn btn-primary" onclick="reorderItems()">
+                        <i class="fas fa-redo"></i> Reorder
+                    </button>
+                </div>
+            </div>
+            <div class="order-details-content" id="orderDetailsContent">
+                <!-- Order details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Refund Request Modal -->
+    <div id="refundModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeRefundModal()">&times;</span>
+            <h2>Request Refund</h2>
+            <form class="refund-form" onsubmit="submitRefund(event)">
+                <div class="form-group">
+                    <label>Reason for Refund</label>
+                    <select required>
+                        <option value="">Select a reason</option>
+                        <option value="not-satisfied">Not satisfied with purchase</option>
+                        <option value="technical-issues">Technical issues</option>
+                        <option value="accidental-purchase">Accidental purchase</option>
+                        <option value="duplicate-game">Already own the game</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Additional Details</label>
+                    <textarea placeholder="Please provide additional details about your refund request..." rows="4"></textarea>
+                </div>
+                <div class="refund-policy">
+                    <p><i class="fas fa-info-circle"></i> <strong>Refund Policy:</strong> Games must be refunded within 14 days of purchase and with less than 2 hours of playtime.</p>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeRefundModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Refund Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/main.js"></script>
+    <script>
+        const orders = [
+            {
+                id: 'ORD-2024-001',
+                date: '2024-01-15',
+                status: 'completed',
+                total: 89.97,
+                items: [
+                    { name: 'Cyberpunk 2077', price: 59.99, image: 'https://via.placeholder.com/80x80/1a1a2e/fff?text=CP2077' },
+                    { name: 'The Witcher 3', price: 29.98, image: 'https://via.placeholder.com/80x80/6a4c93/fff?text=TW3' }
+                ],
+                paymentMethod: 'Credit Card ****1234',
+                orderTime: '14:23'
+            },
+            {
+                id: 'ORD-2024-002',
+                date: '2024-01-12',
+                status: 'completed',
+                total: 24.99,
+                items: [
+                    { name: 'Hades', price: 24.99, image: 'https://via.placeholder.com/80x80/ff8c00/fff?text=Hades' }
+                ],
+                paymentMethod: 'PayPal',
+                orderTime: '09:15'
+            },
+            {
+                id: 'ORD-2024-003',
+                date: '2024-01-10',
+                status: 'processing',
+                total: 149.95,
+                items: [
+                    { name: 'Elden Ring', price: 59.99, image: 'https://via.placeholder.com/80x80/4b0082/fff?text=ER' },
+                    { name: 'Dark Souls III', price: 39.99, image: 'https://via.placeholder.com/80x80/8b0000/fff?text=DS3' },
+                    { name: 'Sekiro', price: 49.97, image: 'https://via.placeholder.com/80x80/2d5016/fff?text=Sekiro' }
+                ],
+                paymentMethod: 'Credit Card ****5678',
+                orderTime: '16:45'
+            },
+            {
+                id: 'ORD-2024-004',
+                date: '2024-01-08',
+                status: 'refunded',
+                total: 19.99,
+                items: [
+                    { name: 'Control', price: 19.99, image: 'https://via.placeholder.com/80x80/333/fff?text=Control' }
+                ],
+                paymentMethod: 'Credit Card ****1234',
+                orderTime: '11:30',
+                refundReason: 'Technical issues'
+            },
+            {
+                id: 'ORD-2024-005',
+                date: '2024-01-05',
+                status: 'completed',
+                total: 79.98,
+                items: [
+                    { name: 'Baldur\'s Gate 3', price: 59.99, image: 'https://via.placeholder.com/80x80/6a4c93/fff?text=BG3' },
+                    { name: 'Hollow Knight', price: 19.99, image: 'https://via.placeholder.com/80x80/333/fff?text=HK' }
+                ],
+                paymentMethod: 'Steam Wallet',
+                orderTime: '20:12'
+            }
+        ];
+
+        let currentFilter = 'all';
+        let currentSort = 'date-desc';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            displayOrders();
+        });
+
+        function displayOrders() {
+            let filteredOrders = filterOrdersByStatus(orders, currentFilter);
+            filteredOrders = sortOrdersBy(filteredOrders, currentSort);
+            
+            const ordersList = document.getElementById('ordersList');
+            ordersList.innerHTML = '';
+
+            if (filteredOrders.length === 0) {
+                ordersList.innerHTML = `
+                    <div class="no-orders">
+                        <i class="fas fa-shopping-bag"></i>
+                        <h3>No orders found</h3>
+                        <p>You haven't placed any orders yet or no orders match your filter.</p>
+                        <a href="../index.html" class="btn btn-primary">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            filteredOrders.forEach(order => {
+                const orderCard = document.createElement('div');
+                orderCard.className = 'order-card';
+                orderCard.innerHTML = `
+                    <div class="order-header">
+                        <div class="order-info">
+                            <div class="order-id">${order.id}</div>
+                            <div class="order-date">${formatDate(order.date)} at ${order.orderTime}</div>
+                        </div>
+                        <div class="order-status ${order.status}">
+                            <i class="fas ${getStatusIcon(order.status)}"></i>
+                            ${capitalizeFirst(order.status)}
+                        </div>
+                    </div>
+                    
+                    <div class="order-items">
+                        ${order.items.map(item => `
+                            <div class="order-item">
+                                <img src="${item.image}" alt="${item.name}">
+                                <div class="item-details">
+                                    <span class="item-name">${item.name}</span>
+                                    <span class="item-price">$${item.price}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="order-footer">
+                        <div class="order-total">
+                            <span class="total-label">Total:</span>
+                            <span class="total-amount">$${order.total}</span>
+                        </div>
+                        <div class="order-actions">
+                            <button class="btn btn-sm btn-secondary" onclick="showOrderDetails('${order.id}')">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                            ${order.status === 'completed' ? `
+                                <button class="btn btn-sm btn-primary" onclick="downloadGames('${order.id}')">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                            ` : ''}
+                            ${order.status === 'completed' ? `
+                                <button class="btn btn-sm btn-warning" onclick="showRefundModal('${order.id}')">
+                                    <i class="fas fa-undo"></i> Refund
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+                ordersList.appendChild(orderCard);
+            });
+        }
+
+        function filterOrders(status) {
+            currentFilter = status;
+            
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            displayOrders();
+        }
+
+        function sortOrders(sortBy) {
+            currentSort = sortBy;
+            displayOrders();
+        }
+
+        function filterOrdersByStatus(orders, status) {
+            if (status === 'all') return orders;
+            return orders.filter(order => order.status === status);
+        }
+
+        function sortOrdersBy(orders, sortBy) {
+            return [...orders].sort((a, b) => {
+                switch (sortBy) {
+                    case 'date-desc':
+                        return new Date(b.date) - new Date(a.date);
+                    case 'date-asc':
+                        return new Date(a.date) - new Date(b.date);
+                    case 'amount-desc':
+                        return b.total - a.total;
+                    case 'amount-asc':
+                        return a.total - b.total;
+                    default:
+                        return 0;
+                }
+            });
+        }
+
+        function showOrderDetails(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+
+            const modal = document.getElementById('orderModal');
+            const content = document.getElementById('orderDetailsContent');
+            
+            content.innerHTML = `
+                <div class="order-summary">
+                    <div class="summary-row">
+                        <span class="label">Order ID:</span>
+                        <span class="value">${order.id}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Order Date:</span>
+                        <span class="value">${formatDate(order.date)} at ${order.orderTime}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Status:</span>
+                        <span class="value status-${order.status}">${capitalizeFirst(order.status)}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Payment Method:</span>
+                        <span class="value">${order.paymentMethod}</span>
+                    </div>
+                    ${order.refundReason ? `
+                        <div class="summary-row">
+                            <span class="label">Refund Reason:</span>
+                            <span class="value">${order.refundReason}</span>
+                        </div>
+                    ` : ''}
+                </div>
+                
+                <div class="order-items-detailed">
+                    <h3>Items Ordered</h3>
+                    ${order.items.map(item => `
+                        <div class="detailed-item">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="item-info">
+                                <h4>${item.name}</h4>
+                                <p class="item-description">Digital Download - Instant Delivery</p>
+                            </div>
+                            <div class="item-price">$${item.price}</div>
+                            ${order.status === 'completed' ? `
+                                <button class="btn btn-sm btn-primary" onclick="downloadSingleGame('${item.name}')">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                            ` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="order-total-detailed">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span>$${(order.total * 0.9).toFixed(2)}</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Tax:</span>
+                        <span>$${(order.total * 0.1).toFixed(2)}</span>
+                    </div>
+                    <div class="total-row total">
+                        <span>Total:</span>
+                        <span>$${order.total}</span>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.add('hidden');
+        }
+
+        function showRefundModal(orderId) {
+            document.getElementById('refundModal').classList.remove('hidden');
+            // Store order ID for refund processing
+            document.getElementById('refundModal').dataset.orderId = orderId;
+        }
+
+        function closeRefundModal() {
+            document.getElementById('refundModal').classList.add('hidden');
+        }
+
+        function submitRefund(event) {
+            event.preventDefault();
+            const orderId = document.getElementById('refundModal').dataset.orderId;
+            
+            // Simulate refund request
+            alert(`Refund request submitted for order ${orderId}. You will receive an email confirmation shortly.`);
+            closeRefundModal();
+        }
+
+        function downloadGames(orderId) {
+            alert(`Downloading all games from order ${orderId}...`);
+        }
+
+        function downloadSingleGame(gameName) {
+            alert(`Downloading ${gameName}...`);
+        }
+
+        function downloadInvoice() {
+            alert('Downloading invoice...');
+        }
+
+        function reorderItems() {
+            alert('Items added to cart for reordering!');
+        }
+
+        function getStatusIcon(status) {
+            switch (status) {
+                case 'completed': return 'fa-check-circle';
+                case 'processing': return 'fa-clock';
+                case 'refunded': return 'fa-undo';
+                default: return 'fa-circle';
+            }
+        }
+
+        function capitalizeFirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
+        function toggleAccountMenu() {
+            const menu = document.getElementById('accountMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = '../login.html';
+        }
+    </script>
+
+    <style>
+        .orders-dashboard {
+            background: var(--dark-bg);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .user-info h1 {
+            color: var(--text-primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .user-info p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .orders-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 200px;
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--primary-orange);
+        }
+
+        .stat-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .order-filters {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: var(--primary-orange);
+            border-color: var(--primary-orange);
+            color: white;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            background: var(--darker-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            min-width: 150px;
+        }
+
+        .date-range {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .date-input {
+            background: var(--darker-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+        }
+
+        .date-range span {
+            color: var(--text-secondary);
+        }
+
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .order-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .order-card:hover {
+            border-color: var(--primary-orange);
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .order-id {
+            color: var(--text-primary);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .order-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .order-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .order-status.completed {
+            background: rgba(39, 174, 96, 0.2);
+            color: #27ae60;
+        }
+
+        .order-status.processing {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+        }
+
+        .order-status.refunded {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+
+        .order-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--darker-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 200px;
+        }
+
+        .order-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .item-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-name {
+            color: var(--text-primary);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .item-price {
+            color: var(--primary-orange);
+            font-size: 0.9rem;
+        }
+
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+
+        .order-total {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .total-label {
+            color: var(--text-secondary);
+        }
+
+        .total-amount {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .no-orders {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .no-orders i {
+            font-size: 4rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .no-orders h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .no-orders p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Modal Styles */
+        .order-details-modal {
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-header h2 {
+            color: var(--text-primary);
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .order-summary {
+            background: var(--darker-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-row .label {
+            color: var(--text-secondary);
+        }
+
+        .summary-row .value {
+            color: var(--text-primary);
+            font-weight: bold;
+        }
+
+        .status-completed { color: #27ae60; }
+        .status-processing { color: #f39c12; }
+        .status-refunded { color: #e74c3c; }
+
+        .order-items-detailed h3 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .detailed-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--darker-bg);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .detailed-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-info h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .item-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .detailed-item .item-price {
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .order-total-detailed {
+            background: var(--darker-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .total-row.total {
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.8rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .refund-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .refund-policy {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid var(--primary-orange);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .refund-policy p {
+            color: var(--text-primary);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .refund-policy i {
+            color: var(--primary-orange);
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .orders-stats {
+                justify-content: center;
+            }
+            
+            .filter-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            
+            .order-footer {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            
+            .detailed-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <style>
+        /* Login Button Styling */
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+            color: white;
+        }
+    </style>
+
+    <!-- Search functionality -->
+    <script>
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.trim();
+            
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}`);
+            }
+        }
+
+        // Allow Enter key to trigger search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>

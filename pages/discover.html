@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Games - GameHub</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+            </a>
+
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="bundles.html" class="nav-link">Bundles</a>
+                <a href="upcoming.html" class="nav-link">Upcoming Games</a>
+                <a href="new-releases.html" class="nav-link">New Releases</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link active">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Discover Hero -->
+    <section class="discover-hero">
+        <div class="hero-content">
+            <h1>Discover Your Next Adventure</h1>
+            <p>Personalized game recommendations just for you</p>
+        </div>
+    </section>
+
+    <!-- Trending Now -->
+    <section class="trending-section">
+        <div class="container">
+            <h2>Trending Now</h2>
+            <div class="trending-grid">
+                <div class="trending-card featured">
+                    <img src="https://via.placeholder.com/600x300/1a1a2e/fff?text=Featured+Trending" alt="Featured Game">
+                    <div class="trending-info">
+                        <h3>Baldur's Gate 3</h3>
+                        <p>The ultimate RPG experience with endless possibilities</p>
+                        <div class="trending-meta">
+                            <span class="price">$59.99</span>
+                            <span class="trend-up">↗ +45%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="trending-card">
+                    <img src="https://via.placeholder.com/300x200/6a4c93/fff?text=Trending+2" alt="Game">
+                    <div class="trending-info">
+                        <h4>Cyberpunk 2077</h4>
+                        <span class="price">$29.99</span>
+                    </div>
+                </div>
+                
+                <div class="trending-card">
+                    <img src="https://via.placeholder.com/300x200/2d5016/fff?text=Trending+3" alt="Game">
+                    <div class="trending-info">
+                        <h4>Elden Ring</h4>
+                        <span class="price">$49.99</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curated Collections -->
+    <section class="collections-section">
+        <div class="container">
+            <h2>Curated Collections</h2>
+            <div class="collections-grid">
+                <div class="collection-card">
+                    <div class="collection-header">
+                        <i class="fas fa-crown"></i>
+                        <h3>Editor's Choice</h3>
+                    </div>
+                    <div class="collection-games">
+                        <img src="https://via.placeholder.com/100x60/ff8c00/fff?text=G1" alt="Game">
+                        <img src="https://via.placeholder.com/100x60/8b0000/fff?text=G2" alt="Game">
+                        <img src="https://via.placeholder.com/100x60/4b0082/fff?text=G3" alt="Game">
+                    </div>
+                    <p>Hand-picked games that define gaming excellence</p>
+                    <button class="btn btn-secondary">View Collection</button>
+                </div>
+                
+                <div class="collection-card">
+                    <div class="collection-header">
+                        <i class="fas fa-fire"></i>
+                        <h3>Hot Deals</h3>
+                    </div>
+                    <div class="collection-games">
+                        <img src="https://via.placeholder.com/100x60/333/fff?text=G4" alt="Game">
+                        <img src="https://via.placeholder.com/100x60/6a4c93/fff?text=G5" alt="Game">
+                        <img src="https://via.placeholder.com/100x60/2d5016/fff?text=G6" alt="Game">
+                    </div>
+                    <p>The biggest discounts available right now</p>
+                    <button class="btn btn-secondary">View Collection</button>
+                </div>
+                
+                <div class="collection-card">
+                    <div class="collection-header">
+                        <i class="fas fa-star"></i>
+                        <h3>Hidden Gems</h3>
+                    </div>
+                    <div class="collection-games">
+                        <img src="https://via.placeholder.com/100x60/ff8c00/fff?text=G7" alt="Game">
+                        <img src="https://via.placeholder.com/100x60/1a1a2e/fff?text=G8" alt="Game">
+                        <img src="https://via.placeholder.com/100x60/8b0000/fff?text=G9" alt="Game">
+                    </div>
+                    <p>Underrated masterpieces waiting to be discovered</p>
+                    <button class="btn btn-secondary">View Collection</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personalized Recommendations -->
+    <section class="recommendations-section">
+        <div class="container">
+            <h2>Recommended For You</h2>
+            <div class="recommendations-grid">
+                <div class="recommendation-card">
+                    <img src="https://via.placeholder.com/280x200/4b0082/fff?text=Recommended+1" alt="Game">
+                    <div class="recommendation-info">
+                        <h3>Stardew Valley</h3>
+                        <div class="recommendation-reason">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Because you liked farming games</span>
+                        </div>
+                        <div class="game-price">
+                            <span class="current-price">$14.99</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <img src="https://via.placeholder.com/280x200/1a1a2e/fff?text=Recommended+2" alt="Game">
+                    <div class="recommendation-info">
+                        <h3>Hades</h3>
+                        <div class="recommendation-reason">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Similar to your wishlist items</span>
+                        </div>
+                        <div class="game-price">
+                            <span class="current-price">$24.99</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <img src="https://via.placeholder.com/280x200/6a4c93/fff?text=Recommended+3" alt="Game">
+                    <div class="recommendation-info">
+                        <h3>Disco Elysium</h3>
+                        <div class="recommendation-reason">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Trending in your region</span>
+                        </div>
+                        <div class="game-price">
+                            <span class="current-price">$39.99</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../assets/main.js"></script>
+    <script>
+        function toggleAccountMenu() {
+            const menu = document.getElementById('accountMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
+    <style>
+        .discover-hero {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .discover-hero h1 {
+            color: var(--text-primary);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .discover-hero p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .trending-section {
+            background: var(--card-bg);
+            padding: 4rem 2rem;
+        }
+
+        .trending-section h2 {
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+        }
+
+        .trending-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .trending-card {
+            background: var(--dark-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .trending-card.featured {
+            grid-row: span 2;
+        }
+
+        .trending-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .trending-card.featured img {
+            height: 300px;
+        }
+
+        .trending-info {
+            padding: 1.5rem;
+        }
+
+        .trending-info h3,
+        .trending-info h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .trending-info p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .trending-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            color: var(--primary-orange);
+            font-weight: bold;
+        }
+
+        .trend-up {
+            color: var(--success-green);
+            font-weight: bold;
+        }
+
+        .collections-section {
+            background: var(--dark-bg);
+            padding: 4rem 2rem;
+        }
+
+        .collections-section h2 {
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .collection-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .collection-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .collection-header i {
+            font-size: 2rem;
+            color: var(--primary-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .collection-header h3 {
+            color: var(--text-primary);
+        }
+
+        .collection-games {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .collection-games img {
+            border-radius: 4px;
+        }
+
+        .collection-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .recommendations-section {
+            background: var(--card-bg);
+            padding: 4rem 2rem;
+        }
+
+        .recommendations-section h2 {
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+        }
+
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .recommendation-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .recommendation-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .recommendation-info {
+            padding: 1.5rem;
+        }
+
+        .recommendation-info h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .recommendation-reason {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .recommendation-reason i {
+            color: var(--primary-orange);
+        }
+
+        .game-price {
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            color: var(--primary-orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .trending-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .trending-card.featured {
+                grid-row: span 1;
+            }
+        }
+    </style>
+
+    <style>
+        /* Login Button Styling */
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+            color: white;
+        }
+    </style>
+
+    <!-- Search functionality -->
+    <script>
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.trim();
+            
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}`);
+            }
+        }
+
+        // Allow Enter key to trigger search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>

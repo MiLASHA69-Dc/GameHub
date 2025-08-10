@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GameHub</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+            </a>
+
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="bundles.html" class="nav-link">Bundles</a>
+                <a href="upcoming.html" class="nav-link">Upcoming Games</a>
+                <a href="new-releases.html" class="nav-link">New Releases</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <a href="register.html" class="login-btn">
+                    <i class="fas fa-user-plus"></i>
+                    Register
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <main class="auth-container">
+        <div class="auth-form">
+            <div class="auth-header">
+                <h1>Welcome Back!</h1>
+                <p>Login to access your GameHub account</p>
+                <div class="login-types">
+                    <small><i class="fas fa-users"></i> Customer & Admin Login</small>
+                </div>
+            </div>
+
+            <form id="loginForm" class="auth-form-content">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-input" required>
+                </div>
+
+                <div class="form-options">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+
+                <div id="errorMessage" class="error-message hidden"></div>
+                <div id="successMessage" class="success-message hidden"></div>
+            </form>
+
+            <div class="demo-credentials">
+                <h4>Demo Accounts</h4>
+                <div class="demo-accounts">
+                    <div class="demo-account admin">
+                        <strong>Admin Access:</strong>
+                        <p>Email: admin@gamehub.com</p>
+                        <p>Password: admin123</p>
+                        <button type="button" class="btn btn-sm btn-secondary" onclick="fillAdmin()">Use Admin Login</button>
+                    </div>
+                    <div class="demo-account customer">
+                        <strong>Customer Access:</strong>
+                        <p>Email: customer@test.com</p>
+                        <p>Password: customer123</p>
+                        <button type="button" class="btn btn-sm btn-secondary" onclick="fillCustomer()">Use Customer Login</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="register.html">Create one here</a></p>
+            </div>
+
+            <div class="auth-divider">
+                <span>Or continue with</span>
+            </div>
+
+            <div class="social-login">
+                <button class="btn btn-social btn-steam">
+                    <i class="fab fa-steam"></i> Steam
+                </button>
+                <button class="btn btn-social btn-google">
+                    <i class="fab fa-google"></i> Google
+                </button>
+                <button class="btn btn-social btn-facebook">
+                    <i class="fab fa-facebook"></i> Facebook
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            
+            // Hide previous messages
+            errorDiv.classList.add('hidden');
+            successDiv.classList.add('hidden');
+            
+            try {
+                const response = await fetch('../api/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        remember: rememberMe
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Store user data in localStorage
+                    localStorage.setItem('user', JSON.stringify({
+                        id: data.user.id,
+                        email: data.user.email,
+                        name: data.user.name,
+                        country: data.user.country,
+                        role: data.user.role || 'user',
+                        isLoggedIn: true
+                    }));
+                    
+                    // Show inline success message
+                    if (data.user.role === 'admin') {
+                        successDiv.textContent = 'Admin login successful! Redirecting to admin dashboard...';
+                    } else {
+                        successDiv.textContent = 'Login successful! Redirecting to your dashboard...';
+                    }
+                    successDiv.classList.remove('hidden');
+                    
+                    // Redirect based on user role
+                    setTimeout(() => {
+                        if (data.user.role === 'admin') {
+                            window.location.href = '../admin/admindashboard.html';
+                        } else {
+                            window.location.href = 'dashboard.html';
+                        }
+                    }, 2000);
+                } else {
+                    // Show inline error message
+                    errorDiv.textContent = data.message || 'Login failed. Please try again.';
+                    errorDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                // Show inline error message
+                errorDiv.textContent = 'Network error. Please try again.';
+                errorDiv.classList.remove('hidden');
+            }
+        });
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user && user.isLoggedIn) {
+                if (user.role === 'admin') {
+                    window.location.href = '../admin/admindashboard.html';
+                } else {
+                    window.location.href = 'dashboard.html';
+                }
+            }
+        });
+
+        // Social login handlers
+        document.querySelector('.btn-steam').addEventListener('click', function() {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            successDiv.classList.add('hidden');
+            errorDiv.textContent = 'Steam login integration would be implemented here';
+            errorDiv.classList.remove('hidden');
+        });
+
+        document.querySelector('.btn-google').addEventListener('click', function() {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            successDiv.classList.add('hidden');
+            errorDiv.textContent = 'Google OAuth integration would be implemented here';
+            errorDiv.classList.remove('hidden');
+        });
+
+        document.querySelector('.btn-facebook').addEventListener('click', function() {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            successDiv.classList.add('hidden');
+            errorDiv.textContent = 'Facebook login integration would be implemented here';
+            errorDiv.classList.remove('hidden');
+        });
+
+        // Demo login functions
+        function fillAdmin() {
+            document.getElementById('email').value = 'admin@gamehub.com';
+            document.getElementById('password').value = 'admin123';
+        }
+
+        function fillCustomer() {
+            document.getElementById('email').value = 'customer@test.com';
+            document.getElementById('password').value = 'customer123';
+        }
+    </script>
+
+    <script>
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            alert(`Searching for: ${searchTerm}`);
+            // Add search functionality here
+        }
+    </script>
+
+    <style>
+        /* Flash Sale Banner */
+        .flash-sale-banner {
+            background: var(--danger-red);
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Navigation Styles */
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: var(--darker-bg);
+            border-radius: 6px;
+            padding: 0.5rem;
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+        }
+
+        .search-bar {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .search-bar::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-btn {
+            background: var(--primary-orange);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--hover-orange);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .wishlist-icon, .cart-icon {
+            position: relative;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .wishlist-icon:hover, .cart-icon:hover {
+            color: var(--primary-orange);
+        }
+
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger-red);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-icon span:last-child {
+            position: static;
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+            color: white;
+        }
+
+        .secondary-nav {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.5rem 0;
+        }
+
+        .secondary-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .secondary-nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 0;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .secondary-nav-link:hover {
+            color: var(--primary-orange);
+            border-bottom-color: var(--primary-orange);
+        }
+        .auth-container {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+        }
+
+        .auth-form {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h1 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .auth-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .login-types {
+            margin-top: 0.5rem;
+        }
+
+        .login-types small {
+            color: var(--primary-orange);
+            background: rgba(255, 140, 0, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            accent-color: var(--primary-orange);
+        }
+
+        .forgot-link {
+            color: var(--primary-orange);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-link:hover {
+            color: var(--hover-orange);
+        }
+
+        .demo-credentials {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(255, 140, 0, 0.05);
+            border: 1px solid rgba(255, 140, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .demo-credentials h4 {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .demo-accounts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .demo-account {
+            padding: 0.8rem;
+            background: var(--card-bg);
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .demo-account strong {
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-account p {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            margin: 0.2rem 0;
+            font-family: monospace;
+        }
+
+        .demo-account .btn {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            padding: 0.3rem 0.6rem;
+        }
+
+        .demo-account.admin {
+            border-left: 3px solid #dc3545;
+        }
+
+        .demo-account.customer {
+            border-left: 3px solid #28a745;
+        }
+
+        @media (max-width: 480px) {
+            .demo-accounts {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .auth-footer a {
+            color: var(--primary-orange);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-footer a:hover {
+            color: var(--hover-orange);
+        }
+
+        .auth-divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .auth-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .auth-divider span {
+            background: var(--card-bg);
+            padding: 0 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-primary);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn-steam:hover {
+            background: #1e2328;
+            border-color: #1e2328;
+        }
+
+        .btn-google:hover {
+            background: #4285f4;
+            border-color: #4285f4;
+        }
+
+        .btn-facebook:hover {
+            background: #1877f2;
+            border-color: #1877f2;
+        }
+
+        /* Inline Message Styles */
+        .error-message {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .success-message {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid #28a745;
+            color: #28a745;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .auth-form {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            .form-options {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</body>
+</html>

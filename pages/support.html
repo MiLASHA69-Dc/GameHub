@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support - GameHub</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+            </a>
+
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="bundles.html" class="nav-link">Bundles</a>
+                <a href="upcoming.html" class="nav-link">Upcoming Games</a>
+                <a href="new-releases.html" class="nav-link">New Releases</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Support Hero -->
+    <section class="support-hero">
+        <div class="hero-content">
+            <h1>How can we help you?</h1>
+            <p>Find answers to your questions or contact our support team</p>
+            
+            <div class="hero-search">
+                <input type="search" class="hero-search-input" placeholder="Search for help articles, FAQs, or topics...">
+                <button class="hero-search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+        <div class="container">
+            <h2>Popular Topics</h2>
+            <div class="actions-grid">
+                <div class="action-card" onclick="showSection('order-issues')">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3>Order Issues</h3>
+                    <p>Problems with your order or payment</p>
+                </div>
+                <div class="action-card" onclick="showSection('activation')">
+                    <i class="fas fa-key"></i>
+                    <h3>Game Activation</h3>
+                    <p>Help with redeeming game keys</p>
+                </div>
+                <div class="action-card" onclick="showSection('refunds')">
+                    <i class="fas fa-undo"></i>
+                    <h3>Refunds</h3>
+                    <p>Return policy and refund requests</p>
+                </div>
+                <div class="action-card" onclick="showSection('account')">
+                    <i class="fas fa-user-cog"></i>
+                    <h3>Account Help</h3>
+                    <p>Login issues and account management</p>
+                </div>
+                <div class="action-card" onclick="showSection('technical')">
+                    <i class="fas fa-tools"></i>
+                    <h3>Technical Issues</h3>
+                    <p>Game installation and performance</p>
+                </div>
+                <div class="action-card" onclick="showSection('general')">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>General Questions</h3>
+                    <p>FAQ and general information</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Options -->
+    <section class="contact-options">
+        <div class="container">
+            <h2>Contact Support</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>Live Chat</h3>
+                    <p>Chat with our support team in real-time</p>
+                    <div class="status online">Available 24/7</div>
+                    <button class="btn btn-primary" onclick="startLiveChat()">Start Chat</button>
+                </div>
+                
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Support</h3>
+                    <p>Send us a detailed message about your issue</p>
+                    <div class="response-time">Response within 24 hours</div>
+                    <button class="btn btn-secondary" onclick="showEmailForm()">Send Email</button>
+                </div>
+                
+                <div class="contact-card">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h3>Support Ticket</h3>
+                    <p>Create a ticket for complex technical issues</p>
+                    <div class="response-time">Response within 12 hours</div>
+                    <button class="btn btn-secondary" onclick="showTicketForm()">Create Ticket</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How do I activate my game key?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>To activate your game key:</p>
+                        <ol>
+                            <li>Log into your Steam, Epic Games, or other platform client</li>
+                            <li>Look for "Activate a Product" or "Redeem Code" option</li>
+                            <li>Enter your game key exactly as provided</li>
+                            <li>Follow the on-screen instructions to complete activation</li>
+                        </ol>
+                        <p>If you need help finding your keys, check your account dashboard under "Game Keys" section.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What is your refund policy?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Our refund policy allows returns under the following conditions:</p>
+                        <ul>
+                            <li>Request made within 14 days of purchase</li>
+                            <li>Game key has not been activated/redeemed</li>
+                            <li>For bundles, no individual keys have been redeemed</li>
+                        </ul>
+                        <p>To request a refund, contact our support team with your order number.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>I didn't receive my game keys. What should I do?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>If you haven't received your keys:</p>
+                        <ol>
+                            <li>Check your account dashboard - keys appear there instantly</li>
+                            <li>Check your email spam/junk folder</li>
+                            <li>Verify your email address in account settings</li>
+                            <li>Contact support if keys are still missing after 1 hour</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Can I gift games to friends?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! You can gift games in several ways:</p>
+                        <ul>
+                            <li>Purchase games and send the keys directly to a friend's email</li>
+                            <li>Buy digital gift cards in various denominations</li>
+                            <li>Some games offer direct platform gifting (Steam, Epic, etc.)</li>
+                        </ul>
+                        <p>Gift options are available at checkout for eligible products.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Why is my payment being declined?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Payment issues can occur due to:</p>
+                        <ul>
+                            <li>Insufficient funds or credit limit reached</li>
+                            <li>Bank security measures blocking international transactions</li>
+                            <li>Incorrect billing information</li>
+                            <li>Expired payment method</li>
+                        </ul>
+                        <p>Try using a different payment method or contact your bank to authorize the transaction.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Email Form Modal -->
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('emailModal')">&times;</span>
+            <h2>Contact Support via Email</h2>
+            <form id="emailForm" class="support-form">
+                <div class="form-group">
+                    <label class="form-label">Your Email</label>
+                    <input type="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Subject</label>
+                    <select class="form-input" required>
+                        <option value="">Select a topic</option>
+                        <option value="order">Order Issues</option>
+                        <option value="keys">Game Key Problems</option>
+                        <option value="refund">Refund Request</option>
+                        <option value="technical">Technical Support</option>
+                        <option value="account">Account Issues</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Order Number (if applicable)</label>
+                    <input type="text" class="form-input" placeholder="e.g., #12345">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-input" rows="6" required placeholder="Please describe your issue in detail..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Ticket Form Modal -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('ticketModal')">&times;</span>
+            <h2>Create Support Ticket</h2>
+            <form id="ticketForm" class="support-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select class="form-input" required>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select class="form-input" required>
+                            <option value="">Select category</option>
+                            <option value="technical">Technical Issue</option>
+                            <option value="billing">Billing Problem</option>
+                            <option value="account">Account Access</option>
+                            <option value="keys">Game Key Issue</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-input" required placeholder="Brief description of the issue">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Detailed Description</label>
+                    <textarea class="form-input" rows="8" required placeholder="Please provide as much detail as possible, including steps to reproduce the issue..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Attachments (optional)</label>
+                    <input type="file" class="form-input" multiple accept="image/*,.pdf,.txt">
+                    <small class="form-help">You can attach screenshots, error logs, or other relevant files.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Ticket</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/main.js"></script>
+    <script>
+        function showSection(section) {
+            alert(`Showing ${section} help section`);
+        }
+
+        function startLiveChat() {
+            alert('Starting live chat... (This would open a chat widget)');
+        }
+
+        function showEmailForm() {
+            document.getElementById('emailModal').style.display = 'flex';
+        }
+
+        function showTicketForm() {
+            document.getElementById('ticketModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function toggleFAQ(button) {
+            const faqItem = button.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = button.querySelector('i');
+            
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-answer').style.maxHeight = '0';
+                    item.querySelector('i').style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            // Toggle current FAQ item
+            if (faqItem.classList.contains('active')) {
+                faqItem.classList.remove('active');
+                answer.style.maxHeight = '0';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                faqItem.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function toggleAccountMenu() {
+            const menu = document.getElementById('accountMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Form submissions
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Email sent successfully! We\'ll respond within 24 hours.');
+            closeModal('emailModal');
+        });
+
+        document.getElementById('ticketForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Support ticket created successfully! Ticket #ST-12345');
+            closeModal('ticketModal');
+        });
+    </script>
+
+    <style>
+        .support-hero {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .support-hero h1 {
+            color: var(--text-primary);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .support-hero p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-search {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            background: white;
+            font-size: 1rem;
+        }
+
+        .hero-search-btn {
+            background: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero-search-btn:hover {
+            background: var(--hover-orange);
+        }
+
+        .quick-actions {
+            background: var(--card-bg);
+            padding: 4rem 2rem;
+        }
+
+        .quick-actions h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .action-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-card:hover {
+            border-color: var(--primary-orange);
+            transform: translateY(-5px);
+        }
+
+        .action-card i {
+            font-size: 3rem;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .action-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .action-card p {
+            color: var(--text-secondary);
+        }
+
+        .contact-options {
+            background: var(--dark-bg);
+            padding: 4rem 2rem;
+        }
+
+        .contact-options h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .status.online {
+            background: var(--success-green);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .response-time {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-section {
+            background: var(--card-bg);
+            padding: 4rem 2rem;
+        }
+
+        .faq-section h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: var(--dark-bg);
+            border: none;
+            padding: 1.5rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--darker-bg);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: var(--card-bg);
+        }
+
+        .faq-answer > div,
+        .faq-answer > p,
+        .faq-answer > ol,
+        .faq-answer > ul {
+            padding: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .faq-answer ol,
+        .faq-answer ul {
+            padding-left: 3rem;
+        }
+
+        .faq-answer li {
+            margin-bottom: 0.5rem;
+        }
+
+        .support-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-help {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .support-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-search {
+                flex-direction: column;
+            }
+            
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <style>
+        /* Login Button Styling */
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+            color: white;
+        }
+    </style>
+
+    <script>
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            if (searchTerm.trim()) {
+                window.location.href = `../index.html?search=${encodeURIComponent(searchTerm)}`;
+            }
+        }
+
+        document.getElementById('searchInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>

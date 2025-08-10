@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FantasyVerse - Premium Fantasy Collection</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+            </a>
+
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="bundles.html" class="nav-link">Bundles</a>
+                <a href="upcoming.html" class="nav-link">Upcoming Games</a>
+                <a href="new-releases.html" class="nav-link">New Releases</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link active">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- FantasyVerse Hero -->
+    <section class="fantasyverse-hero">
+        <div class="hero-background">
+            <div class="magical-particles"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-logo">
+                <i class="fas fa-dragon"></i>
+                <h1>FantasyVerse</h1>
+            </div>
+            <p class="hero-subtitle">Premium Fantasy Gaming Collection</p>
+            <p class="hero-description">Immerse yourself in magical worlds, epic quests, and legendary adventures</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">200+</span>
+                    <span class="stat-label">Fantasy Games</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Exclusive Titles</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Player Rating</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Collections -->
+    <section class="featured-collections">
+        <div class="container">
+            <h2>Legendary Collections</h2>
+            <div class="collections-grid">
+                <div class="collection-card epic" onclick="browseCollection('epic-rpg')">
+                    <div class="collection-image">
+                        <img src="https://via.placeholder.com/400x300/6a4c93/fff?text=Epic+RPG" alt="Epic RPG Collection">
+                        <div class="collection-overlay">
+                            <div class="collection-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h3>Epic RPG Sagas</h3>
+                            <p>42 masterpiece RPGs</p>
+                            <div class="collection-price">
+                                <span class="current">$89.99</span>
+                                <span class="original">$599.99</span>
+                                <span class="discount">85% OFF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collection-card legendary" onclick="browseCollection('medieval')">
+                    <div class="collection-image">
+                        <img src="https://via.placeholder.com/400x300/8b4513/fff?text=Medieval+Legends" alt="Medieval Collection">
+                        <div class="collection-overlay">
+                            <div class="collection-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Medieval Legends</h3>
+                            <p>25 historical adventures</p>
+                            <div class="collection-price">
+                                <span class="current">$69.99</span>
+                                <span class="original">$449.99</span>
+                                <span class="discount">84% OFF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collection-card mythic" onclick="browseCollection('magic-realm')">
+                    <div class="collection-image">
+                        <img src="https://via.placeholder.com/400x300/4b0082/fff?text=Magic+Realm" alt="Magic Realm Collection">
+                        <div class="collection-overlay">
+                            <div class="collection-icon">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                            <h3>Magic Realm</h3>
+                            <p>38 spellbinding games</p>
+                            <div class="collection-price">
+                                <span class="current">$79.99</span>
+                                <span class="original">$529.99</span>
+                                <span class="discount">85% OFF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fantasy Categories -->
+    <section class="fantasy-categories">
+        <div class="container">
+            <h2>Explore Fantasy Realms</h2>
+            <div class="categories-slider">
+                <div class="category-tabs">
+                    <button class="category-tab active" onclick="showCategory('action-rpg')">Action RPG</button>
+                    <button class="category-tab" onclick="showCategory('turn-based')">Turn-Based</button>
+                    <button class="category-tab" onclick="showCategory('open-world')">Open World</button>
+                    <button class="category-tab" onclick="showCategory('indie-fantasy')">Indie Fantasy</button>
+                    <button class="category-tab" onclick="showCategory('classic-rpg')">Classic RPG</button>
+                </div>
+                
+                <div class="category-content" id="categoryContent">
+                    <!-- Category games will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exclusive Deals -->
+    <section class="exclusive-deals">
+        <div class="container">
+            <h2>FantasyVerse Exclusives</h2>
+            <div class="deals-grid">
+                <div class="exclusive-deal featured">
+                    <div class="deal-badge">EXCLUSIVE</div>
+                    <div class="deal-image">
+                        <img src="https://via.placeholder.com/300x200/1a1a2e/fff?text=Dragon+Age+Trilogy" alt="Dragon Age Trilogy">
+                    </div>
+                    <div class="deal-content">
+                        <h3>Dragon Age Complete Trilogy</h3>
+                        <p>Three epic adventures in one legendary collection</p>
+                        <div class="deal-features">
+                            <span class="feature">🎮 150+ Hours</span>
+                            <span class="feature">🏆 All DLCs</span>
+                            <span class="feature">⭐ 95 Metacritic</span>
+                        </div>
+                        <div class="deal-pricing">
+                            <span class="current-price">$24.99</span>
+                            <span class="original-price">$149.99</span>
+                            <span class="savings">Save 83%</span>
+                        </div>
+                        <button class="btn btn-primary deal-btn">Get Exclusive Deal</button>
+                    </div>
+                </div>
+
+                <div class="exclusive-deal">
+                    <div class="deal-badge">LIMITED</div>
+                    <div class="deal-image">
+                        <img src="https://via.placeholder.com/300x200/4b0082/fff?text=Elder+Scrolls+Collection" alt="Elder Scrolls Collection">
+                    </div>
+                    <div class="deal-content">
+                        <h3>Elder Scrolls Anthology</h3>
+                        <p>Complete collection of the legendary series</p>
+                        <div class="deal-features">
+                            <span class="feature">🌍 5 Games</span>
+                            <span class="feature">🔥 All Expansions</span>
+                            <span class="feature">📜 Digital Extras</span>
+                        </div>
+                        <div class="deal-pricing">
+                            <span class="current-price">$39.99</span>
+                            <span class="original-price">$199.99</span>
+                            <span class="savings">Save 80%</span>
+                        </div>
+                        <button class="btn btn-primary deal-btn">Claim Now</button>
+                    </div>
+                </div>
+
+                <div class="exclusive-deal">
+                    <div class="deal-badge">PREMIUM</div>
+                    <div class="deal-image">
+                        <img src="https://via.placeholder.com/300x200/8b0000/fff?text=Dark+Souls+Trilogy" alt="Dark Souls Trilogy">
+                    </div>
+                    <div class="deal-content">
+                        <h3>Dark Souls Complete Edition</h3>
+                        <p>The ultimate challenge for brave souls</p>
+                        <div class="deal-features">
+                            <span class="feature">⚔️ 3 Games</span>
+                            <span class="feature">💀 All DLCs</span>
+                            <span class="feature">🏆 Remastered</span>
+                        </div>
+                        <div class="deal-pricing">
+                            <span class="current-price">$34.99</span>
+                            <span class="original-price">$159.99</span>
+                            <span class="savings">Save 78%</span>
+                        </div>
+                        <button class="btn btn-primary deal-btn">Accept Challenge</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Spotlight -->
+    <section class="community-spotlight">
+        <div class="container">
+            <h2>Community Favorites</h2>
+            <div class="spotlight-content">
+                <div class="community-picks">
+                    <h3>🏆 Player's Choice Awards</h3>
+                    <div class="picks-list">
+                        <div class="pick-item">
+                            <span class="rank">1st</span>
+                            <span class="game">The Witcher 3: Wild Hunt</span>
+                            <span class="votes">24,531 votes</span>
+                        </div>
+                        <div class="pick-item">
+                            <span class="rank">2nd</span>
+                            <span class="game">Elden Ring</span>
+                            <span class="votes">18,742 votes</span>
+                        </div>
+                        <div class="pick-item">
+                            <span class="rank">3rd</span>
+                            <span class="game">Baldur's Gate 3</span>
+                            <span class="votes">16,389 votes</span>
+                        </div>
+                        <div class="pick-item">
+                            <span class="rank">4th</span>
+                            <span class="game">Skyrim Special Edition</span>
+                            <span class="votes">15,201 votes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="community-reviews">
+                    <h3>⭐ Latest Reviews</h3>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="reviewer">DragonSlayer92</span>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <p>"Incredible collection! The FantasyVerse bundle gave me months of entertainment."</p>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="reviewer">MysticMage</span>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <p>"Best value for fantasy games anywhere. Highly recommend!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../assets/main.js"></script>
+    <script>
+        const categoryGames = {
+            'action-rpg': [
+                { title: "Elden Ring", price: 49.99, rating: 96, image: "https://via.placeholder.com/200x150/1a1a2e/fff?text=Elden" },
+                { title: "Dark Souls III", price: 29.99, rating: 89, image: "https://via.placeholder.com/200x150/8b0000/fff?text=DS3" },
+                { title: "Sekiro", price: 39.99, rating: 90, image: "https://via.placeholder.com/200x150/2d5016/fff?text=Sekiro" },
+                { title: "Bloodborne", price: 19.99, rating: 92, image: "https://via.placeholder.com/200x150/4b0082/fff?text=BB" }
+            ],
+            'turn-based': [
+                { title: "Baldur's Gate 3", price: 59.99, rating: 96, image: "https://via.placeholder.com/200x150/6a4c93/fff?text=BG3" },
+                { title: "Divinity: Original Sin 2", price: 24.99, rating: 93, image: "https://via.placeholder.com/200x150/ff8c00/fff?text=DOS2" },
+                { title: "Pillars of Eternity", price: 14.99, rating: 89, image: "https://via.placeholder.com/200x150/228b22/fff?text=PoE" },
+                { title: "Wasteland 3", price: 19.99, rating: 85, image: "https://via.placeholder.com/200x150/8b4513/fff?text=W3" }
+            ],
+            'open-world': [
+                { title: "The Witcher 3", price: 39.99, rating: 93, image: "https://via.placeholder.com/200x150/6a4c93/fff?text=TW3" },
+                { title: "Skyrim Special Edition", price: 29.99, rating: 90, image: "https://via.placeholder.com/200x150/4169e1/fff?text=Skyrim" },
+                { title: "Dragon Age: Inquisition", price: 19.99, rating: 85, image: "https://via.placeholder.com/200x150/8b0000/fff?text=DAI" },
+                { title: "Kingdom Come: Deliverance", price: 24.99, rating: 76, image: "https://via.placeholder.com/200x150/2d5016/fff?text=KCD" }
+            ],
+            'indie-fantasy': [
+                { title: "Hades", price: 24.99, rating: 93, image: "https://via.placeholder.com/200x150/ff6b35/fff?text=Hades" },
+                { title: "Hollow Knight", price: 14.99, rating: 90, image: "https://via.placeholder.com/200x150/333/fff?text=HK" },
+                { title: "Ori and the Will of the Wisps", price: 19.99, rating: 90, image: "https://via.placeholder.com/200x150/4b0082/fff?text=Ori" },
+                { title: "Dead Cells", price: 24.99, rating: 89, image: "https://via.placeholder.com/200x150/8b0000/fff?text=DC" }
+            ],
+            'classic-rpg': [
+                { title: "Baldur's Gate 2", price: 9.99, rating: 95, image: "https://via.placeholder.com/200x150/6a4c93/fff?text=BG2" },
+                { title: "Planescape: Torment", price: 7.99, rating: 91, image: "https://via.placeholder.com/200x150/4b0082/fff?text=PST" },
+                { title: "Icewind Dale", price: 5.99, rating: 87, image: "https://via.placeholder.com/200x150/1a1a2e/fff?text=IWD" },
+                { title: "Neverwinter Nights", price: 8.99, rating: 84, image: "https://via.placeholder.com/200x150/228b22/fff?text=NWN" }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showCategory('action-rpg');
+            createMagicalParticles();
+        });
+
+        function showCategory(category) {
+            // Update active tab
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Load category games
+            const games = categoryGames[category] || [];
+            const content = document.getElementById('categoryContent');
+            content.innerHTML = '';
+
+            const gamesGrid = document.createElement('div');
+            gamesGrid.className = 'category-games-grid';
+
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'category-game-card';
+                gameCard.innerHTML = `
+                    <div class="game-image">
+                        <img src="${game.image}" alt="${game.title}">
+                        <div class="game-rating">${game.rating}</div>
+                    </div>
+                    <div class="game-info">
+                        <h4>${game.title}</h4>
+                        <div class="game-price">$${game.price}</div>
+                        <button class="btn btn-sm btn-primary" onclick="addToCart('${game.title}')">Add to Cart</button>
+                    </div>
+                `;
+                gamesGrid.appendChild(gameCard);
+            });
+
+            content.appendChild(gamesGrid);
+        }
+
+        function browseCollection(collection) {
+            alert(`Browsing ${collection} collection`);
+        }
+
+        function addToCart(gameTitle) {
+            alert(`Added ${gameTitle} to cart!`);
+        }
+
+        function createMagicalParticles() {
+            const container = document.querySelector('.magical-particles');
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.animationDuration = (3 + Math.random() * 4) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        function toggleAccountMenu() {
+            const menu = document.getElementById('accountMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
+    <style>
+        .fantasyverse-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #533a71 100%);
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .magical-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #ff6b35, #ffd700);
+            border-radius: 50%;
+            animation: float 5s infinite ease-in-out;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.7; }
+            25% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+            50% { transform: translateY(-10px) scale(0.8); opacity: 0.5; }
+            75% { transform: translateY(-30px) scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-logo i {
+            font-size: 4rem;
+            color: #ffd700;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+        }
+
+        .hero-logo h1 {
+            color: var(--text-primary);
+            font-size: 4rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            color: #ffd700;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .featured-collections {
+            background: var(--card-bg);
+            padding: 4rem 2rem;
+        }
+
+        .featured-collections h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .collection-card {
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .collection-card.epic {
+            border: 2px solid #8e44ad;
+            box-shadow: 0 0 30px rgba(142, 68, 173, 0.3);
+        }
+
+        .collection-card.legendary {
+            border: 2px solid #f39c12;
+            box-shadow: 0 0 30px rgba(243, 156, 18, 0.3);
+        }
+
+        .collection-card.mythic {
+            border: 2px solid #e74c3c;
+            box-shadow: 0 0 30px rgba(231, 76, 60, 0.3);
+        }
+
+        .collection-image {
+            position: relative;
+            height: 250px;
+        }
+
+        .collection-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .collection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .collection-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .collection-overlay h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .collection-overlay p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .collection-price {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .collection-price .current {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .collection-price .original {
+            text-decoration: line-through;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .collection-price .discount {
+            background: #e74c3c;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .fantasy-categories {
+            background: var(--dark-bg);
+            padding: 4rem 2rem;
+        }
+
+        .fantasy-categories h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .category-games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-game-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .category-game-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+        }
+
+        .game-image {
+            position: relative;
+            height: 150px;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .game-rating {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0,0,0,0.8);
+            color: #ffd700;
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .game-info {
+            padding: 1.5rem;
+        }
+
+        .game-info h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .game-price {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .exclusive-deals {
+            background: var(--card-bg);
+            padding: 4rem 2rem;
+        }
+
+        .exclusive-deals h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .exclusive-deal {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .exclusive-deal:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+        }
+
+        .exclusive-deal.featured {
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .deal-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .deal-image {
+            height: 200px;
+        }
+
+        .deal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .deal-content {
+            padding: 2rem;
+        }
+
+        .deal-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .deal-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .deal-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature {
+            background: var(--darker-bg);
+            color: var(--text-secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .deal-pricing {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .current-price {
+            color: #ffd700;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .original-price {
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+
+        .savings {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .deal-btn {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+        }
+
+        .community-spotlight {
+            background: var(--dark-bg);
+            padding: 4rem 2rem;
+        }
+
+        .community-spotlight h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .spotlight-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .community-picks,
+        .community-reviews {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .community-picks h3,
+        .community-reviews h3 {
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .picks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pick-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--darker-bg);
+            border-radius: 8px;
+        }
+
+        .rank {
+            background: #ffd700;
+            color: #1a1a2e;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .game {
+            flex: 1;
+            color: var(--text-primary);
+            font-weight: bold;
+        }
+
+        .votes {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .review-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--darker-bg);
+            border-radius: 8px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .reviewer {
+            color: var(--text-primary);
+            font-weight: bold;
+        }
+
+        .stars {
+            font-size: 0.9rem;
+        }
+
+        .review-item p {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-logo {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .hero-logo h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                gap: 2rem;
+            }
+            
+            .spotlight-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <style>
+        /* Login Button Styling */
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+            color: white;
+        }
+    </style>
+
+    <!-- Search functionality -->
+    <script>
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.trim();
+            
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}`);
+            }
+        }
+
+        // Allow Enter key to trigger search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - GameHub</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header admin-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+                <span class="admin-badge">ADMIN</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">View Store</a>
+                <a href="#" onclick="logout()" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+
+            <div class="user-actions">
+                <div class="admin-user">
+                    <i class="fas fa-user-shield"></i>
+                    <span id="adminName">Administrator</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Admin Dashboard -->
+    <main class="admin-dashboard">
+        <div class="admin-sidebar">
+            <nav class="admin-nav">
+                <a href="#overview" class="admin-nav-link active" onclick="showSection('overview')">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard Overview
+                </a>
+                <a href="#products" class="admin-nav-link" onclick="showSection('products')">
+                    <i class="fas fa-gamepad"></i> Manage Games
+                </a>
+                <a href="#orders" class="admin-nav-link" onclick="showSection('orders')">
+                    <i class="fas fa-shopping-bag"></i> Orders
+                </a>
+                <a href="#customers" class="admin-nav-link" onclick="showSection('customers')">
+                    <i class="fas fa-users"></i> Customers
+                </a>
+                <a href="#analytics" class="admin-nav-link" onclick="showSection('analytics')">
+                    <i class="fas fa-chart-bar"></i> Analytics
+                </a>
+                <a href="#settings" class="admin-nav-link" onclick="showSection('settings')">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+            </nav>
+        </div>
+
+        <div class="admin-content">
+            <!-- Overview Section -->
+            <section id="overview" class="admin-section active">
+                <div class="section-header">
+                    <h2>Dashboard Overview</h2>
+                    <div class="header-actions">
+                        <select class="filter-select">
+                            <option>Last 7 days</option>
+                            <option>Last 30 days</option>
+                            <option>Last 3 months</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card revenue">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>$24,567</h3>
+                            <p>Total Revenue</p>
+                            <span class="stat-change positive">+12.5%</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card orders">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>1,234</h3>
+                            <p>Total Orders</p>
+                            <span class="stat-change positive">+8.2%</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card customers">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>892</h3>
+                            <p>Active Customers</p>
+                            <span class="stat-change positive">+15.7%</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card products">
+                        <div class="stat-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>14,115</h3>
+                            <p>Total Games</p>
+                            <span class="stat-change neutral">+0.3%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <h3>Sales Overview</h3>
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-line"></i>
+                            <p>Chart would be implemented here</p>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <i class="fas fa-shopping-cart"></i>
+                                <div class="activity-details">
+                                    <p>New order #12345 for $29.99</p>
+                                    <span>2 minutes ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-user-plus"></i>
+                                <div class="activity-details">
+                                    <p>New customer registration: john@email.com</p>
+                                    <span>15 minutes ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-gamepad"></i>
+                                <div class="activity-details">
+                                    <p>Product "Cyberpunk 2077" updated</p>
+                                    <span>1 hour ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Games Section -->
+            <section id="products" class="admin-section">
+                <div class="section-header">
+                    <h2>Manage Games</h2>
+                    <div class="header-actions">
+                        <select class="filter-select" id="categoryFilter" onchange="loadGames()">
+                            <option value="">All Categories</option>
+                        </select>
+                        <input type="search" class="search-input" id="gameSearch" placeholder="Search games..." onkeyup="debounceGameSearch()">
+                        <button class="btn btn-primary" onclick="showAddProductModal()">
+                            <i class="fas fa-plus"></i> Add New Game
+                        </button>
+                    </div>
+                </div>
+
+                <div class="products-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Game</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Platform</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gamesTableBody">
+                            <tr>
+                                <td colspan="7" class="loading-row">Loading games...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="gamesPagination" class="pagination-container" style="display: none;">
+                    <button id="prevPageBtn" class="btn btn-secondary" onclick="changePage(-1)">Previous</button>
+                    <span id="pageInfo">Page 1 of 1</span>
+                    <button id="nextPageBtn" class="btn btn-secondary" onclick="changePage(1)">Next</button>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders" class="admin-section">
+                <div class="section-header">
+                    <h2>Orders Management</h2>
+                    <div class="header-actions">
+                        <select class="filter-select" id="orderStatusFilter" onchange="loadOrders()">
+                            <option value="all">All Orders</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="refunded">Refunded</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="orders-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr>
+                                <td colspan="7" class="loading-row">Loading orders...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Customers Section -->
+            <section id="customers" class="admin-section">
+                <div class="section-header">
+                    <h2>Customer Management</h2>
+                    <div class="header-actions">
+                        <input type="search" class="search-input" placeholder="Search customers...">
+                    </div>
+                </div>
+
+                <div class="customers-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Registration Date</th>
+                                <th>Orders</th>
+                                <th>Total Spent</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customersTableBody">
+                            <tr>
+                                <td colspan="7" class="loading-row">Loading customers...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="admin-section">
+                <div class="section-header">
+                    <h2>Analytics & Reports</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary">Export Report</button>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="chart-container">
+                        <h3>Revenue Trends</h3>
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-area"></i>
+                            <p>Revenue chart would be displayed here</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3>Top Selling Products</h3>
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-pie"></i>
+                            <p>Product sales chart would be displayed here</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="admin-section">
+                <div class="section-header">
+                    <h2>System Settings</h2>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>Store Settings</h3>
+                        <form class="settings-form">
+                            <div class="form-group">
+                                <label class="form-label">Store Name</label>
+                                <input type="text" class="form-input" value="GameHub">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Currency</label>
+                                <select class="form-input">
+                                    <option>USD ($)</option>
+                                    <option>EUR (€)</option>
+                                    <option>GBP (£)</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <div class="settings-card">
+                        <h3>Payment Settings</h3>
+                        <form class="settings-form">
+                            <div class="form-group">
+                                <input type="checkbox" id="paypal" checked>
+                                <label for="paypal">Enable PayPal</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" id="stripe" checked>
+                                <label for="stripe">Enable Stripe</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" id="crypto">
+                                <label for="crypto">Enable Cryptocurrency</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Add Game Modal -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeModal('addProductModal')">&times;</span>
+            <h2>Add New Game</h2>
+            <form id="addProductForm" class="product-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Game Name</label>
+                        <input type="text" id="productName" name="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="category" name="category" class="form-input" required>
+                            <option value="">Select Category</option>
+                            <option value="action">Action</option>
+                            <option value="rpg">RPG</option>
+                            <option value="strategy">Strategy</option>
+                            <option value="simulation">Simulation</option>
+                            <option value="adventure">Adventure</option>
+                            <option value="sports">Sports</option>
+                            <option value="racing">Racing</option>
+                            <option value="puzzle">Puzzle</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Price ($)</label>
+                        <input type="number" id="price" name="price" class="form-input" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Discount (%)</label>
+                        <input type="number" id="discount" name="discount" class="form-input" min="0" max="100" value="0">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea id="description" name="description" class="form-input" rows="4" placeholder="Describe the game features, gameplay, and what makes it special..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Game Image URL</label>
+                    <input type="url" id="imageUrl" name="image_url" class="form-input" placeholder="https://example.com/game-image.jpg">
+                </div>
+                
+                <div class="form-group upload-section">
+                    <label class="form-label">
+                        <i class="fas fa-download"></i> Game Setup File Upload
+                        <span class="required-indicator">*</span>
+                    </label>
+                    <div class="file-upload-container enhanced">
+                        <input type="file" id="gameSetupFile" name="game_setup" class="file-input" accept=".exe,.msi,.zip,.rar,.7z,.iso,.bin" required>
+                        <label for="gameSetupFile" class="file-upload-label">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="upload-text">
+                                <h4>Upload Game Setup File</h4>
+                                <p>Drag & drop your game setup file here, or click to browse</p>
+                                <small>Supported formats: .exe, .msi, .zip, .rar, .7z, .iso, .bin</small>
+                                <small class="size-limit">Maximum file size: 500MB</small>
+                            </div>
+                        </label>
+                        <div id="fileList" class="file-list"></div>
+                        <div class="upload-progress hidden" id="uploadProgress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <span class="progress-text" id="progressText">0%</span>
+                        </div>
+                    </div>
+                    <div class="upload-info">
+                        <div class="info-item">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Upload the main game installer or setup file that customers will download</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Files are automatically scanned for security before being made available</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Platform</label>
+                        <select id="platform" name="platform" class="form-input" required>
+                            <option value="">Select Platform</option>
+                            <option value="windows">Windows</option>
+                            <option value="mac">Mac</option>
+                            <option value="linux">Linux</option>
+                            <option value="playstation">Play Station</option>
+                            <option value="xbox">XBOX</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">System Requirements</label>
+                        <select id="systemReq" name="system_requirements" class="form-input">
+                            <option value="low">Low (2GB RAM, Basic GPU)</option>
+                            <option value="medium">Medium (4GB RAM, Mid-range GPU)</option>
+                            <option value="high">High (8GB RAM, High-end GPU)</option>
+                            <option value="ultra">Ultra (16GB+ RAM, Latest GPU)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Release Date</label>
+                    <input type="date" id="releaseDate" name="release_date" class="form-input">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelAddBtn" onclick="closeModal('addProductModal')">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="button" class="btn btn-outline" id="resetFormBtn">
+                        <i class="fas fa-undo"></i> Reset Form
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitProductBtn">
+                        <i class="fas fa-plus-circle"></i>
+                        <span class="btn-text">Add Game</span>
+                        <span class="loading-spinner hidden"></span>
+                    </button>
+                </div>
+                
+                <div id="formMessage" class="form-message hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Load admin data
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user || !user.isLoggedIn || user.role !== 'admin') {
+                window.location.href = '../pages/login.html';
+                return;
+            }
+            
+            // Update admin display
+            document.getElementById('adminName').textContent = user.name || 'Administrator';
+            
+            // Load initial games data
+            loadGames();
+        });
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.admin-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+            
+            // Load data when specific sections are shown
+            if (sectionId === 'customers') {
+                loadCustomers();
+            } else if (sectionId === 'orders') {
+                loadOrders();
+            } else if (sectionId === 'products') {
+                loadGames();
+            }
+        }
+
+        function showAddProductModal() {
+            document.getElementById('addProductModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = '../pages/login.html';
+        }
+
+        // Add product form submission
+        document.getElementById('addProductForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.querySelector('#addProductForm .btn-primary');
+            const spinner = submitBtn.querySelector('.loading-spinner');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const formMessage = document.getElementById('formMessage');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            spinner.classList.remove('hidden');
+            btnText.textContent = 'Adding Game...';
+            formMessage.classList.add('hidden');
+            
+            try {
+                // Create FormData object
+                const formData = new FormData(this);
+                
+                // Add the uploaded file
+                const gameSetupFile = document.getElementById('gameSetupFile').files[0];
+                if (gameSetupFile) {
+                    formData.append('game_setup', gameSetupFile);
+                }
+                
+                // Submit form to API
+                const response = await fetch('../api/add_product.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    formMessage.textContent = 'Game added successfully!';
+                    formMessage.className = 'form-message success';
+                    formMessage.classList.remove('hidden');
+                    
+                    // Reset form after short delay
+                    setTimeout(() => {
+                        this.reset();
+                        document.getElementById('fileList').innerHTML = '';
+                        formMessage.classList.add('hidden');
+                        
+                        // Close modal
+                        closeModal('addProductModal');
+                        
+                        // Reload games list to show the new game
+                        loadGames();
+                    }, 2000);
+                } else {
+                    throw new Error(result.message || 'Failed to add game');
+                }
+                
+            } catch (error) {
+                formMessage.textContent = 'Error: ' + error.message;
+                formMessage.className = 'form-message error';
+                formMessage.classList.remove('hidden');
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                spinner.classList.add('hidden');
+                btnText.textContent = 'Add Game';
+            }
+        });
+
+        // Reset form button handler
+        document.getElementById('resetFormBtn').addEventListener('click', () => {
+            const addProductForm = document.getElementById('addProductForm');
+            const formMessage = document.getElementById('formMessage');
+            
+            addProductForm.reset();
+            document.getElementById('fileList').innerHTML = '';
+            formMessage.classList.add('hidden');
+        });
+
+        // Cancel button handler (update existing close functionality)
+        document.getElementById('cancelAddBtn').addEventListener('click', () => {
+            const formMessage = document.getElementById('formMessage');
+            formMessage.classList.add('hidden');
+            closeModal('addProductModal');
+        });
+
+        // File upload handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('gameSetupFile');
+            const fileList = document.getElementById('fileList');
+            const uploadContainer = document.querySelector('.file-upload-container');
+            const progressContainer = document.getElementById('uploadProgress');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+
+            // Handle file selection
+            fileInput.addEventListener('change', function(e) {
+                handleFiles(e.target.files);
+            });
+
+            // Enhanced drag and drop handling
+            uploadContainer.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadContainer.classList.add('dragover');
+                uploadContainer.style.borderColor = 'var(--primary-orange)';
+                uploadContainer.style.background = 'rgba(255, 140, 0, 0.15)';
+            });
+
+            uploadContainer.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                if (!uploadContainer.contains(e.relatedTarget)) {
+                    uploadContainer.classList.remove('dragover');
+                    uploadContainer.style.borderColor = 'var(--primary-orange)';
+                    uploadContainer.style.background = 'rgba(255, 140, 0, 0.05)';
+                }
+            });
+
+            uploadContainer.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadContainer.classList.remove('dragover');
+                uploadContainer.style.borderColor = 'var(--primary-orange)';
+                uploadContainer.style.background = 'rgba(255, 140, 0, 0.05)';
+                
+                const files = e.dataTransfer.files;
+                handleFiles(files);
+                
+                // Update the file input
+                fileInput.files = files;
+            });
+
+            function handleFiles(files) {
+                fileList.innerHTML = '';
+                
+                if (files.length > 0) {
+                    // Show progress simulation for better UX
+                    showUploadProgress();
+                    
+                    Array.from(files).forEach((file, index) => {
+                        // Validate file
+                        if (validateFile(file)) {
+                            const fileItem = createFileItem(file, index);
+                            fileList.appendChild(fileItem);
+                        }
+                    });
+                    
+                    // Hide progress after simulation
+                    setTimeout(() => {
+                        hideUploadProgress();
+                    }, 2000);
+                }
+            }
+
+            function validateFile(file) {
+                const maxSize = 500 * 1024 * 1024; // 500MB
+                const allowedTypes = ['exe', 'msi', 'zip', 'rar', '7z', 'iso', 'bin'];
+                const fileExtension = file.name.split('.').pop().toLowerCase();
+                
+                if (!allowedTypes.includes(fileExtension)) {
+                    alert(`Invalid file type: ${fileExtension}. Allowed types: ${allowedTypes.join(', ')}`);
+                    return false;
+                }
+                
+                if (file.size > maxSize) {
+                    alert(`File size too large: ${formatFileSize(file.size)}. Maximum allowed: 500MB`);
+                    return false;
+                }
+                
+                return true;
+            }
+
+            function showUploadProgress() {
+                progressContainer.classList.remove('hidden');
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.random() * 15;
+                    if (progress > 100) progress = 100;
+                    
+                    progressFill.style.width = progress + '%';
+                    progressText.textContent = Math.round(progress) + '%';
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        progressText.textContent = 'Upload Complete!';
+                    }
+                }, 200);
+            }
+
+            function hideUploadProgress() {
+                progressContainer.classList.add('hidden');
+                progressFill.style.width = '0%';
+                progressText.textContent = '0%';
+            }
+
+            function createFileItem(file, index) {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                
+                const fileSize = formatFileSize(file.size);
+                const fileIcon = getFileIcon(file.name);
+                const uploadDate = new Date().toLocaleDateString();
+                
+                fileItem.innerHTML = `
+                    <div class="file-info">
+                        <i class="${fileIcon}"></i>
+                        <div class="file-details">
+                            <h5>${file.name}</h5>
+                            <span>${fileSize} • ${file.type || 'Game Setup File'} • Uploaded: ${uploadDate}</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-times file-remove" onclick="removeFile(${index})" title="Remove file"></i>
+                `;
+                
+                return fileItem;
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            function getFileIcon(filename) {
+                const extension = filename.split('.').pop().toLowerCase();
+                switch (extension) {
+                    case 'exe':
+                        return 'fas fa-cog';
+                    case 'msi':
+                        return 'fab fa-windows';
+                    case 'zip':
+                    case 'rar':
+                    case '7z':
+                        return 'fas fa-file-archive';
+                    case 'iso':
+                        return 'fas fa-compact-disc';
+                    case 'bin':
+                        return 'fas fa-file-code';
+                    default:
+                        return 'fas fa-gamepad';
+                }
+            }
+
+            // Make removeFile function global
+            window.removeFile = function(index) {
+                const fileInput = document.getElementById('gameSetupFile');
+                const dt = new DataTransfer();
+                const files = Array.from(fileInput.files);
+                
+                files.splice(index, 1);
+                
+                files.forEach(file => {
+                    dt.items.add(file);
+                });
+                
+                fileInput.files = dt.files;
+                handleFiles(fileInput.files);
+            };
+        });
+
+        // Global variables for games pagination
+        let currentGamesPage = 1;
+        let gamesPerPage = 10;
+        let gameSearchTimeout;
+
+        // Load games from database
+        async function loadGames(page = 1) {
+            try {
+                const category = document.getElementById('categoryFilter').value;
+                const search = document.getElementById('gameSearch').value;
+                const offset = (page - 1) * gamesPerPage;
+                
+                let url = `../api/get_games.php?limit=${gamesPerPage}&offset=${offset}`;
+                if (category) url += `&category=${encodeURIComponent(category)}`;
+                if (search) url += `&search=${encodeURIComponent(search)}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const tbody = document.getElementById('gamesTableBody');
+                    tbody.innerHTML = '';
+                    
+                    if (data.games && data.games.length > 0) {
+                        data.games.forEach(game => {
+                            const row = document.createElement('tr');
+                            
+                            // Build price display
+                            let priceDisplay = `$${game.price}`;
+                            if (game.discount_price && game.discount_percentage > 0) {
+                                priceDisplay = `
+                                    <div class="price-container">
+                                        <span class="original-price">$${game.price}</span>
+                                        <span class="discounted-price">$${game.final_price}</span>
+                                        <span class="discount-badge">-${game.discount_percentage}%</span>
+                                    </div>
+                                `;
+                            }
+                            
+                            row.innerHTML = `
+                                <td>
+                                    <div class="product-info">
+                                        <img src="${game.image_url}" alt="${game.title}" onerror="this.src='https://via.placeholder.com/50x50/333/fff?text=${game.title.substring(0,2)}'">
+                                        <div>
+                                            <h4>${game.title}</h4>
+                                            <p>${game.platform} • ${game.system_requirements}</p>
+                                            <small class="setup-file">${game.setup_file_name} (${game.setup_file_size})</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="category-badge">${game.category}</span>
+                                </td>
+                                <td>${priceDisplay}</td>
+                                <td>
+                                    <span class="platform-badge">${game.platform}</span>
+                                </td>
+                                <td>
+                                    <span class="stock-indicator ${game.stock_quantity > 100 ? 'unlimited' : 'limited'}">
+                                        ${game.stock_quantity > 999999 ? '∞' : game.stock_quantity}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge ${game.status}">${game.status.charAt(0).toUpperCase() + game.status.slice(1)}</span>
+                                    ${game.is_featured ? '<span class="featured-badge">★ Featured</span>' : ''}
+                                </td>
+                                <td class="action-buttons">
+                                    <button class="btn btn-sm btn-secondary" onclick="editGame(${game.id})" title="Edit Game">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-info" onclick="viewGame(${game.id})" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteGame(${game.id}, '${game.title}')" title="Delete Game">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                        
+                        // Update pagination
+                        updateGamesPagination(data.pagination);
+                        
+                        // Populate categories filter
+                        populateCategoriesFilter(data.categories);
+                        
+                        // Update games count in overview
+                        const gamesCountElement = document.querySelector('.stat-card.products .stat-info h3');
+                        if (gamesCountElement) {
+                            gamesCountElement.textContent = data.total.toLocaleString();
+                        }
+                        
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="7" class="no-data">No games found</td></tr>';
+                        document.getElementById('gamesPagination').style.display = 'none';
+                    }
+                } else {
+                    console.error('Failed to load games:', data.message);
+                    const tbody = document.getElementById('gamesTableBody');
+                    tbody.innerHTML = '<tr><td colspan="7" class="error-row">Failed to load games</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading games:', error);
+                const tbody = document.getElementById('gamesTableBody');
+                tbody.innerHTML = '<tr><td colspan="7" class="error-row">Error loading games</td></tr>';
+            }
+        }
+
+        // Update pagination controls
+        function updateGamesPagination(pagination) {
+            const paginationContainer = document.getElementById('gamesPagination');
+            const pageInfo = document.getElementById('pageInfo');
+            const prevBtn = document.getElementById('prevPageBtn');
+            const nextBtn = document.getElementById('nextPageBtn');
+            
+            if (pagination.total_pages > 1) {
+                paginationContainer.style.display = 'flex';
+                pageInfo.textContent = `Page ${pagination.current_page} of ${pagination.total_pages}`;
+                
+                prevBtn.disabled = pagination.current_page <= 1;
+                nextBtn.disabled = pagination.current_page >= pagination.total_pages;
+                
+                currentGamesPage = pagination.current_page;
+            } else {
+                paginationContainer.style.display = 'none';
+            }
+        }
+
+        // Populate categories filter
+        function populateCategoriesFilter(categories) {
+            const categoryFilter = document.getElementById('categoryFilter');
+            const currentValue = categoryFilter.value;
+            
+            // Clear existing options except "All Categories"
+            categoryFilter.innerHTML = '<option value="">All Categories</option>';
+            
+            // Add category options
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                categoryFilter.appendChild(option);
+            });
+            
+            // Restore selected value
+            categoryFilter.value = currentValue;
+        }
+
+        // Handle pagination
+        function changePage(direction) {
+            const newPage = currentGamesPage + direction;
+            if (newPage >= 1) {
+                loadGames(newPage);
+            }
+        }
+
+        // Debounced search function
+        function debounceGameSearch() {
+            clearTimeout(gameSearchTimeout);
+            gameSearchTimeout = setTimeout(() => {
+                loadGames(1); // Reset to first page when searching
+            }, 500);
+        }
+
+        // Game action functions
+        function editGame(gameId) {
+            alert(`Edit game functionality for ID: ${gameId}\nThis would open the edit modal with game data.`);
+        }
+
+        function viewGame(gameId) {
+            alert(`View game details for ID: ${gameId}\nThis would show detailed game information.`);
+        }
+
+        function deleteGame(gameId, gameTitle) {
+            if (confirm(`Are you sure you want to delete "${gameTitle}"?\nThis action cannot be undone.`)) {
+                // TODO: Implement delete functionality
+                alert(`Delete game functionality for ID: ${gameId}\nAPI call would be made here.`);
+            }
+        }
+
+        // Load customers from database
+        async function loadCustomers() {
+            try {
+                const response = await fetch('../api/get_customers.php');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const tbody = document.getElementById('customersTableBody');
+                    tbody.innerHTML = '';
+                    
+                    if (data.customers && data.customers.length > 0) {
+                        data.customers.forEach(customer => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${customer.name}</td>
+                                <td>${customer.email}</td>
+                                <td>${customer.registration_date}</td>
+                                <td>${customer.orders}</td>
+                                <td>${customer.total_spent}</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-secondary">View</button>
+                                    <button class="btn btn-sm btn-danger">Suspend</button>
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                        
+                        // Update customer count in overview
+                        const customerCountElement = document.querySelector('.stat-card.customers .stat-info h3');
+                        if (customerCountElement) {
+                            customerCountElement.textContent = data.total;
+                        }
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="7" class="no-data">No customers found</td></tr>';
+                    }
+                } else {
+                    console.error('Failed to load customers:', data.message);
+                    const tbody = document.getElementById('customersTableBody');
+                    tbody.innerHTML = '<tr><td colspan="7" class="error-row">Failed to load customers</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading customers:', error);
+                const tbody = document.getElementById('customersTableBody');
+                tbody.innerHTML = '<tr><td colspan="7" class="error-row">Error loading customers</td></tr>';
+            }
+        }
+
+        // Load orders from database
+        async function loadOrders() {
+            try {
+                const statusFilter = document.getElementById('orderStatusFilter').value;
+                const url = statusFilter === 'all' 
+                    ? '../api/get_orders.php' 
+                    : `../api/get_orders.php?status=${statusFilter}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const tbody = document.getElementById('ordersTableBody');
+                    tbody.innerHTML = '';
+                    
+                    if (data.orders && data.orders.length > 0) {
+                        data.orders.forEach(order => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${order.order_number}</td>
+                                <td>${order.customer_name}</td>
+                                <td>${order.formatted_date}</td>
+                                <td>${order.items_text}</td>
+                                <td>${order.formatted_total}</td>
+                                <td><span class="status-badge ${order.status}">${capitalizeFirst(order.status)}</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-secondary" onclick="viewOrder(${order.order_id})">View</button>
+                                    ${getOrderActionButton(order.status, order.order_id)}
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="7" class="no-data">No orders found</td></tr>';
+                    }
+                } else {
+                    console.error('Failed to load orders:', data.message);
+                    const tbody = document.getElementById('ordersTableBody');
+                    tbody.innerHTML = '<tr><td colspan="7" class="error-row">Failed to load orders</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                const tbody = document.getElementById('ordersTableBody');
+                tbody.innerHTML = '<tr><td colspan="7" class="error-row">Error loading orders</td></tr>';
+            }
+        }
+
+        // Get appropriate action button based on order status
+        function getOrderActionButton(status, orderId) {
+            switch (status) {
+                case 'pending':
+                    return `<button class="btn btn-sm btn-primary" onclick="updateOrderStatus(${orderId}, 'process')">Process</button>`;
+                case 'processing':
+                    return `<button class="btn btn-sm btn-success" onclick="updateOrderStatus(${orderId}, 'complete')">Complete</button>`;
+                case 'completed':
+                    return `<button class="btn btn-sm btn-danger" onclick="updateOrderStatus(${orderId}, 'refund')">Refund</button>`;
+                case 'cancelled':
+                    return `<span class="text-muted">No actions</span>`;
+                case 'refunded':
+                    return `<span class="text-muted">Refunded</span>`;
+                default:
+                    return `<button class="btn btn-sm btn-warning" onclick="updateOrderStatus(${orderId}, 'cancel')">Cancel</button>`;
+            }
+        }
+
+        // Update order status
+        async function updateOrderStatus(orderId, action) {
+            if (!confirm(`Are you sure you want to ${action} this order?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch('../api/update_order_status.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        order_id: orderId,
+                        action: action
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(data.message);
+                    loadOrders(); // Reload orders to show updated status
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error updating order status:', error);
+                alert('Network error. Please try again.');
+            }
+        }
+
+        // View order details (placeholder)
+        function viewOrder(orderId) {
+            alert(`View order details for Order ID: ${orderId}\nThis would open a detailed order view.`);
+        }
+
+        // Utility function to capitalize first letter
+        function capitalizeFirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    </script>
+
+    <style>
+        .admin-header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #2a2a2a 100%);
+            border-bottom: 2px solid var(--primary-orange);
+        }
+
+        .admin-badge {
+            background: var(--primary-orange);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .admin-dashboard {
+            display: flex;
+            min-height: calc(100vh - 80px);
+            background: var(--dark-bg);
+        }
+
+        .admin-sidebar {
+            width: 250px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 0;
+        }
+
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .admin-nav-link:hover,
+        .admin-nav-link.active {
+            background: rgba(255, 140, 0, 0.1);
+            color: var(--primary-orange);
+            border-left-color: var(--primary-orange);
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header h2 {
+            color: var(--text-primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-card.revenue .stat-icon { background: #28a745; }
+        .stat-card.orders .stat-icon { background: #007bff; }
+        .stat-card.customers .stat-icon { background: #17a2b8; }
+        .stat-card.products .stat-icon { background: #6f42c1; }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .stat-info h3 {
+            color: var(--text-primary);
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .stat-change.positive { color: #28a745; }
+        .stat-change.negative { color: #dc3545; }
+        .stat-change.neutral { color: var(--text-secondary); }
+
+        .dashboard-charts {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .chart-container,
+        .recent-activity {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .chart-container h3,
+        .recent-activity h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .chart-placeholder {
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+        }
+
+        .chart-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--darker-bg);
+            border-radius: 6px;
+        }
+
+        .activity-item i {
+            color: var(--primary-orange);
+            width: 20px;
+        }
+
+        .activity-details p {
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .activity-details span {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .product-info img {
+            border-radius: 4px;
+        }
+
+        .product-info h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .product-info p {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .settings-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .settings-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .settings-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .modal-content.large {
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal-content h2 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--text-secondary);
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--primary-orange);
+        }
+
+        .modal-content.large {
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .product-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: auto;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            position: sticky;
+            bottom: 0;
+            background: var(--card-bg);
+            z-index: 10;
+        }
+
+        .loading-row,
+        .no-data,
+        .error-row {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .error-row {
+            color: #dc3545;
+        }
+
+        .text-muted {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .status-badge.pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid #ffc107;
+        }
+
+        .status-badge.processing {
+            background: rgba(0, 123, 255, 0.2);
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
+
+        .status-badge.completed {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+
+        .status-badge.cancelled {
+            background: rgba(108, 117, 125, 0.2);
+            color: #6c757d;
+            border: 1px solid #6c757d;
+        }
+
+        .status-badge.refunded {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+
+        .status-badge.active {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Game-specific styles */
+        .price-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .discounted-price {
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+
+        .discount-badge {
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            align-self: flex-start;
+        }
+
+        .category-badge {
+            background: rgba(0, 123, 255, 0.2);
+            color: #007bff;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .platform-badge {
+            background: rgba(108, 117, 125, 0.2);
+            color: #6c757d;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .stock-indicator {
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .stock-indicator.unlimited {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+
+        .stock-indicator.limited {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .featured-badge {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .setup-file {
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            display: block;
+            margin-top: 0.2rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.25rem;
+            justify-content: center;
+        }
+
+        .action-buttons .btn {
+            padding: 0.25rem 0.5rem;
+            min-width: auto;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        #pageInfo {
+            color: var(--text-primary);
+            font-weight: 500;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .filter-select, .search-input {
+            margin-right: 1rem;
+        }
+
+        .search-input {
+            min-width: 200px;
+        }
+
+        /* File Upload Styles */
+        .upload-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .upload-section .form-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .required-indicator {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .file-upload-container {
+            position: relative;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            background: var(--darker-bg);
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .file-upload-container.enhanced {
+            border: 3px dashed var(--primary-orange);
+            background: rgba(255, 140, 0, 0.05);
+            min-height: 150px;
+        }
+
+        .file-upload-container:hover,
+        .file-upload-container.dragover {
+            border-color: var(--primary-orange);
+            background: rgba(255, 140, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .file-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            text-align: center;
+            min-height: 120px;
+        }
+
+        .upload-icon {
+            margin-bottom: 1rem;
+        }
+
+        .upload-icon i {
+            font-size: 3rem;
+            color: var(--primary-orange);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .upload-text h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .upload-text p {
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .upload-text small {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .size-limit {
+            color: var(--primary-orange) !important;
+            font-weight: 500;
+        }
+
+        .file-list {
+            padding: 0 1rem 1rem;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            border-color: var(--primary-orange);
+            background: rgba(255, 140, 0, 0.05);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .file-info i {
+            color: var(--primary-orange);
+            font-size: 1.5rem;
+        }
+
+        .file-details h5 {
+            color: var(--text-primary);
+            margin: 0 0 0.25rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .file-details span {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .file-remove {
+            color: #dc3545;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .file-remove:hover {
+            background: rgba(220, 53, 69, 0.1);
+            transform: scale(1.1);
+        }
+
+        .upload-progress {
+            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .upload-progress.hidden {
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-orange), #ff8c00);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .progress-text {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .upload-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 140, 0, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .info-item i {
+            color: var(--primary-orange);
+            font-size: 1rem;
+            min-width: 16px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .upload-progress-bar {
+            height: 100%;
+            background: var(--primary-orange);
+            transition: width 0.3s ease;
+        }
+
+        /* Enhanced Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e55a00;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: #555;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .loading-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-spinner.hidden {
+            display: none;
+        }
+
+        .form-message {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .form-message.success {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid #28a745;
+            color: #28a745;
+        }
+
+        .form-message.error {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+        }
+
+        .form-message.hidden {
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .admin-dashboard {
+                flex-direction: column;
+            }
+            
+            .admin-sidebar {
+                width: 100%;
+                padding: 1rem 0;
+            }
+            
+            .admin-nav {
+                flex-direction: row;
+                overflow-x: auto;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .dashboard-charts {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - PC Games, Steam Keys & Game Bundles</title>
+    <link rel="stylesheet" href="assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+            </a>
+
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="pages/bundles.html" class="nav-link">Bundles</a>
+                <a href="pages/upcoming.html" class="nav-link">Upcoming Games</a>
+                <a href="pages/new-releases.html" class="nav-link">New Releases</a>
+                <a href="pages/support.html" class="nav-link">Support</a>
+            </div>
+
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <a href="pages/login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="pages/discover.html" class="secondary-nav-link">Discover</a>
+            <a href="pages/categories.html" class="secondary-nav-link">Categories</a>
+            <a href="pages/bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="pages/mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="pages/fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            <div class="filter-group">
+                <h3 class="filter-title">Hide Filters</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="onSale">
+                    <label for="onSale">On Sale</label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3 class="filter-title">Price</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="under5">
+                    <label for="under5">Under $5.00</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="range5to10">
+                    <label for="range5to10">$5.00 - $9.99</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="range10to20">
+                    <label for="range10to20">$10.00 - $19.99</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="over20">
+                    <label for="over20">Over $20.00</label>
+                </div>
+                <div class="price-range">
+                    <input type="number" class="price-input" placeholder="Min" id="minPrice">
+                    <span>to</span>
+                    <input type="number" class="price-input" placeholder="Max" id="maxPrice">
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3 class="filter-title">Product Type</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="typeGame" checked>
+                    <label for="typeGame">Game (9,734)</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="typeDLC">
+                    <label for="typeDLC">DLC (3,570)</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="typeBook">
+                    <label for="typeBook">Book (361)</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="typeComic">
+                    <label for="typeComic">Comic (294)</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="typeAudio">
+                    <label for="typeAudio">Audio (39)</label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3 class="filter-title">Platform</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="platformWindows" checked>
+                    <label for="platformWindows">Windows</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="platformMac">
+                    <label for="platformMac">Mac</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="platformLinux">
+                    <label for="platformLinux">Linux</label>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Products Section -->
+        <section class="products-section">
+            <div class="products-header">
+                <div class="results-info">
+                    Showing <span id="productCount">14,115</span> Products
+                </div>
+                <select class="sort-dropdown" id="sortSelect">
+                    <option value="bestseller">Top Sellers</option>
+                    <option value="newest">Newest</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="discount">Biggest Discount</option>
+                    <option value="rating">User Rating</option>
+                </select>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+
+            <div class="text-center mt-3">
+                <button class="btn btn-secondary" onclick="loadMoreProducts()">
+                    Load More Products
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login to Your Account</h2>
+            <form id="loginForm" class="mt-2">
+                <div class="form-group">
+                    <label class="form-label">Email:</label>
+                    <input type="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password:</label>
+                    <input type="password" class="form-input" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/main.js"></script>
+    <script>
+        // Sample product data
+        const sampleProducts = [
+            {
+                id: 1,
+                title: "Lords of the Fallen",
+                price: 7.79,
+                originalPrice: 29.99,
+                discount: 74,
+                image: "https://via.placeholder.com/280x200/333/fff?text=Lords+of+the+Fallen",
+                platform: "steam",
+                type: "game",
+                flashDeal: false
+            },
+            {
+                id: 2,
+                title: "Mystery Box Bundle",
+                price: 9.99,
+                originalPrice: null,
+                discount: 0,
+                image: "https://via.placeholder.com/280x200/6a4c93/fff?text=Mystery+Box",
+                platform: "steam",
+                type: "bundle",
+                flashDeal: false
+            },
+            {
+                id: 3,
+                title: "Lords of the Fallen Deluxe",
+                price: 10.39,
+                originalPrice: 39.99,
+                discount: 74,
+                image: "https://via.placeholder.com/280x200/2d5016/fff?text=Lords+Deluxe",
+                platform: "steam",
+                type: "game",
+                flashDeal: false
+            },
+            {
+                id: 4,
+                title: "The Elder Scrolls IV: Oblivion",
+                price: 4.99,
+                originalPrice: 19.99,
+                discount: 75,
+                image: "https://via.placeholder.com/280x200/8b0000/fff?text=Oblivion",
+                platform: "steam",
+                type: "game",
+                flashDeal: true
+            },
+            {
+                id: 5,
+                title: "Build Your Own Bundle",
+                price: 12.99,
+                originalPrice: null,
+                discount: 0,
+                image: "https://via.placeholder.com/280x200/ff8c00/fff?text=Build+Bundle",
+                platform: "multiple",
+                type: "bundle",
+                flashDeal: false
+            },
+            {
+                id: 6,
+                title: "VIP Mystery Bundle",
+                price: 24.99,
+                originalPrice: null,
+                discount: 0,
+                image: "https://via.placeholder.com/280x200/4b0082/fff?text=VIP+Mystery",
+                platform: "steam",
+                type: "bundle",
+                flashDeal: false
+            }
+        ];
+
+        // Load products on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts(sampleProducts);
+        });
+
+        function loadProducts(products) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            products.forEach(product => {
+                const productCard = createProductCard(product);
+                grid.appendChild(productCard);
+            });
+        }
+
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            const discountBadge = product.discount > 0 ? 
+                `<div class="discount-badge">-${product.discount}%</div>` : '';
+            
+            const flashDealBadge = product.flashDeal ? 
+                `<div class="flash-deal-badge">FLASH DEAL</div>` : '';
+            
+            const originalPriceDisplay = product.originalPrice ? 
+                `<span class="original-price">$${product.originalPrice}</span>` : '';
+
+            card.innerHTML = `
+                ${flashDealBadge}
+                ${discountBadge}
+                <img src="${product.image}" alt="${product.title}" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">${product.title}</h3>
+                    <div class="product-price">
+                        <span class="current-price">$${product.price}</span>
+                        ${originalPriceDisplay}
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart(${product.id})">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        <button class="btn btn-secondary" onclick="addToWishlist(${product.id})">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function addToCart(productId) {
+            alert(`Added product ${productId} to cart!`);
+            // Add cart functionality here
+        }
+
+        function addToWishlist(productId) {
+            alert(`Added product ${productId} to wishlist!`);
+            // Add wishlist functionality here
+        }
+
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            if (searchTerm.trim()) {
+                // Filter products or implement search functionality
+                alert(`Searching for: ${searchTerm}`);
+            }
+        }
+
+        // Handle Enter key in search
+        document.getElementById('searchInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function loadMoreProducts() {
+            alert('Loading more products...');
+            // Add pagination functionality here
+        }
+    </script>
+
+    <style>
+        /* Flash Sale Banner */
+        .flash-sale-banner {
+            background: var(--danger-red);
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .flash-deal-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--danger-red);
+            color: white;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+            color: white;
+        }
+    </style>
+</body>
+</html>

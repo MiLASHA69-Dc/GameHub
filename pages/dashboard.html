@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - GameHub</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+            </a>
+
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="bundles.html" class="nav-link">Bundles</a>
+                <a href="upcoming.html" class="nav-link">Upcoming Games</a>
+                <a href="new-releases.html" class="nav-link">New Releases</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <button onclick="logout()" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-container">
+        <div class="dashboard-sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h3 id="userName">John Doe</h3>
+                <p id="userEmail">john.doe@email.com</p>
+            </div>
+
+            <nav class="dashboard-nav">
+                <a href="#overview" class="dashboard-nav-link active" onclick="showSection('overview')">
+                    <i class="fas fa-tachometer-alt"></i> Overview
+                </a>
+                <a href="#orders" class="dashboard-nav-link" onclick="showSection('orders')">
+                    <i class="fas fa-shopping-bag"></i> My Orders
+                </a>
+                <a href="#wishlist" class="dashboard-nav-link" onclick="showSection('wishlist')">
+                    <i class="fas fa-heart"></i> Wishlist
+                </a>
+                <a href="#keys" class="dashboard-nav-link" onclick="showSection('keys')">
+                    <i class="fas fa-key"></i> Game Keys
+                </a>
+                <a href="#profile" class="dashboard-nav-link" onclick="showSection('profile')">
+                    <i class="fas fa-user-edit"></i> Profile Settings
+                </a>
+                <a href="#security" class="dashboard-nav-link" onclick="showSection('security')">
+                    <i class="fas fa-shield-alt"></i> Security
+                </a>
+            </nav>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- Overview Section -->
+            <section id="overview" class="dashboard-section active">
+                <h2>Account Overview</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>12</h3>
+                            <p>Total Orders</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>48</h3>
+                            <p>Games Owned</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>15</h3>
+                            <p>Wishlist Items</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>$234.50</h3>
+                            <p>Total Spent</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-orders">
+                    <h3>Recent Orders</h3>
+                    <div class="order-list">
+                        <div class="order-item">
+                            <img src="https://via.placeholder.com/60x80/333/fff?text=Game" alt="Game">
+                            <div class="order-details">
+                                <h4>Lords of the Fallen Deluxe</h4>
+                                <p>Order #12345 • March 15, 2024</p>
+                                <span class="order-status completed">Completed</span>
+                            </div>
+                            <div class="order-price">$10.39</div>
+                        </div>
+                        
+                        <div class="order-item">
+                            <img src="https://via.placeholder.com/60x80/8b0000/fff?text=Game" alt="Game">
+                            <div class="order-details">
+                                <h4>The Elder Scrolls IV: Oblivion</h4>
+                                <p>Order #12344 • March 12, 2024</p>
+                                <span class="order-status completed">Completed</span>
+                            </div>
+                            <div class="order-price">$4.99</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders" class="dashboard-section">
+                <div class="section-header">
+                    <h2>My Orders</h2>
+                    <select class="filter-select">
+                        <option value="all">All Orders</option>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                
+                <div class="orders-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#12345</td>
+                                <td>March 15, 2024</td>
+                                <td>2 items</td>
+                                <td>$15.38</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-secondary">View Details</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#12344</td>
+                                <td>March 12, 2024</td>
+                                <td>1 item</td>
+                                <td>$4.99</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-secondary">View Details</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Wishlist Section -->
+            <section id="wishlist" class="dashboard-section">
+                <div class="section-header">
+                    <h2>My Wishlist</h2>
+                    <p>15 items in your wishlist</p>
+                </div>
+                
+                <div class="wishlist-grid">
+                    <div class="wishlist-item">
+                        <img src="https://via.placeholder.com/200x120/333/fff?text=Game+1" alt="Game">
+                        <div class="wishlist-details">
+                            <h4>Cyberpunk 2077</h4>
+                            <div class="wishlist-price">
+                                <span class="current-price">$29.99</span>
+                                <span class="original-price">$59.99</span>
+                                <span class="discount">-50%</span>
+                            </div>
+                            <div class="wishlist-actions">
+                                <button class="btn btn-primary btn-sm">Add to Cart</button>
+                                <button class="btn btn-secondary btn-sm">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="wishlist-item">
+                        <img src="https://via.placeholder.com/200x120/8b0000/fff?text=Game+2" alt="Game">
+                        <div class="wishlist-details">
+                            <h4>Red Dead Redemption 2</h4>
+                            <div class="wishlist-price">
+                                <span class="current-price">$39.99</span>
+                            </div>
+                            <div class="wishlist-actions">
+                                <button class="btn btn-primary btn-sm">Add to Cart</button>
+                                <button class="btn btn-secondary btn-sm">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game Keys Section -->
+            <section id="keys" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Game Keys</h2>
+                    <p>Your purchased game keys and activation codes</p>
+                </div>
+                
+                <div class="keys-list">
+                    <div class="key-item">
+                        <div class="key-game">
+                            <img src="https://via.placeholder.com/80x60/333/fff?text=Game" alt="Game">
+                            <div class="key-details">
+                                <h4>Lords of the Fallen Deluxe</h4>
+                                <p>Steam Key • Purchased March 15, 2024</p>
+                            </div>
+                        </div>
+                        <div class="key-actions">
+                            <button class="btn btn-secondary btn-sm" onclick="revealKey('key1')">
+                                <i class="fas fa-eye"></i> Reveal Key
+                            </button>
+                            <button class="btn btn-secondary btn-sm">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="key-item">
+                        <div class="key-game">
+                            <img src="https://via.placeholder.com/80x60/8b0000/fff?text=Game" alt="Game">
+                            <div class="key-details">
+                                <h4>The Elder Scrolls IV: Oblivion</h4>
+                                <p>Steam Key • Purchased March 12, 2024</p>
+                            </div>
+                        </div>
+                        <div class="key-actions">
+                            <button class="btn btn-secondary btn-sm" onclick="revealKey('key2')">
+                                <i class="fas fa-eye"></i> Reveal Key
+                            </button>
+                            <button class="btn btn-secondary btn-sm">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="dashboard-section">
+                <h2>Profile Settings</h2>
+                
+                <form id="profileForm" class="profile-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name *</label>
+                            <input type="text" id="firstName" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" id="lastName" class="form-input">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" id="email" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Contact Number</label>
+                            <input type="tel" id="contactNumber" class="form-input" placeholder="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Age</label>
+                            <input type="number" id="age" class="form-input" min="13" max="120" placeholder="25">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea id="address" class="form-input" rows="3" placeholder="Enter your full address"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Country</label>
+                            <select id="country" class="form-input">
+                                <option value="United States">United States</option>
+                                <option value="Canada">Canada</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Germany">Germany</option>
+                                <option value="France">France</option>
+                                <option value="Japan">Japan</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Preferred Currency</label>
+                            <select id="preferredCurrency" class="form-input">
+                                <option value="USD ($)">USD ($)</option>
+                                <option value="EUR (€)">EUR (€)</option>
+                                <option value="GBP (£)">GBP (£)</option>
+                                <option value="CAD ($)">CAD ($)</option>
+                                <option value="AUD ($)">AUD ($)</option>
+                                <option value="JPY (¥)">JPY (¥)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" onclick="loadProfile()">Reset</button>
+                    </div>
+                    
+                    <div id="profileMessage" class="profile-message hidden"></div>
+                </form>
+            </section>
+
+            <!-- Security Section -->
+            <section id="security" class="dashboard-section">
+                <h2>Security Settings</h2>
+                
+                <div class="security-section">
+                    <h3>Change Password</h3>
+                    <form id="customerChangePasswordForm" class="security-form">
+                        <div class="form-group">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" id="customerCurrentPassword" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">New Password</label>
+                            <input type="password" id="customerNewPassword" class="form-input" required minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirm New Password</label>
+                            <input type="password" id="customerConfirmPassword" class="form-input" required minlength="6">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                        <div id="customerPasswordMessage" class="password-message hidden"></div>
+                    </form>
+                </div>
+                
+                <div class="security-section">
+                    <h3>Two-Factor Authentication</h3>
+                    <p>Add an extra layer of security to your account</p>
+                    <button class="btn btn-secondary">Enable 2FA</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Load user data
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user || !user.isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Update user display
+            document.getElementById('userName').textContent = user.name || 'User';
+            document.getElementById('userEmail').textContent = user.email || 'user@email.com';
+            
+            // Load profile data when page loads
+            loadProfile();
+        });
+
+        // Load profile data from database
+        async function loadProfile() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            
+            try {
+                const response = await fetch(`../api/get_profile.php?userId=${user.id}`);
+                const data = await response.json();
+                
+                if (data.success && data.profile) {
+                    const profile = data.profile;
+                    
+                    // Populate form fields
+                    document.getElementById('firstName').value = profile.first_name || '';
+                    document.getElementById('lastName').value = profile.last_name || '';
+                    document.getElementById('email').value = profile.email || '';
+                    document.getElementById('contactNumber').value = profile.contact_number || '';
+                    document.getElementById('address').value = profile.address || '';
+                    document.getElementById('age').value = profile.age || '';
+                    document.getElementById('country').value = profile.country || 'United States';
+                    document.getElementById('preferredCurrency').value = profile.preferred_currency || 'USD ($)';
+                    
+                    // Update sidebar display
+                    const fullName = `${profile.first_name || ''} ${profile.last_name || ''}`.trim();
+                    if (fullName) {
+                        document.getElementById('userName').textContent = fullName;
+                    }
+                    document.getElementById('userEmail').textContent = profile.email || user.email;
+                } else {
+                    console.error('Failed to load profile:', data.message);
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.dashboard-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.dashboard-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+            
+            // Load profile data when profile section is shown
+            if (sectionId === 'profile') {
+                loadProfile();
+            }
+        }
+
+        function toggleAccountMenu() {
+            const menu = document.getElementById('accountMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        }
+
+        function revealKey(keyId) {
+            alert('Game key would be revealed here');
+        }
+
+        // Customer change password form submission
+        document.getElementById('customerChangePasswordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('customerCurrentPassword').value;
+            const newPassword = document.getElementById('customerNewPassword').value;
+            const confirmPassword = document.getElementById('customerConfirmPassword').value;
+            const messageDiv = document.getElementById('customerPasswordMessage');
+            
+            // Hide previous message
+            messageDiv.classList.add('hidden');
+            
+            // Validate passwords match
+            if (newPassword !== confirmPassword) {
+                messageDiv.textContent = 'New passwords do not match.';
+                messageDiv.className = 'password-message error';
+                messageDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Get user data
+            const user = JSON.parse(localStorage.getItem('user'));
+            
+            try {
+                const response = await fetch('../api/change_password.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId: user.id,
+                        currentPassword: currentPassword,
+                        newPassword: newPassword
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    messageDiv.textContent = 'Password changed successfully!';
+                    messageDiv.className = 'password-message success';
+                    messageDiv.classList.remove('hidden');
+                    
+                    // Clear form
+                    document.getElementById('customerChangePasswordForm').reset();
+                } else {
+                    messageDiv.textContent = data.message || 'Failed to change password.';
+                    messageDiv.className = 'password-message error';
+                    messageDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Password change error:', error);
+                messageDiv.textContent = 'Network error. Please try again.';
+                messageDiv.className = 'password-message error';
+                messageDiv.classList.remove('hidden');
+            }
+        });
+
+        // Profile form submission
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const user = JSON.parse(localStorage.getItem('user'));
+            const messageDiv = document.getElementById('profileMessage');
+            
+            // Hide previous message
+            messageDiv.classList.add('hidden');
+            
+            // Get form data
+            const formData = {
+                userId: user.id,
+                first_name: document.getElementById('firstName').value.trim(),
+                last_name: document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                contact_number: document.getElementById('contactNumber').value.trim(),
+                address: document.getElementById('address').value.trim(),
+                age: document.getElementById('age').value ? parseInt(document.getElementById('age').value) : null,
+                country: document.getElementById('country').value,
+                preferred_currency: document.getElementById('preferredCurrency').value
+            };
+            
+            // Validate required fields
+            if (!formData.first_name || !formData.email) {
+                messageDiv.textContent = 'First name and email are required.';
+                messageDiv.className = 'profile-message error';
+                messageDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Validate age if provided
+            if (formData.age !== null && (formData.age < 13 || formData.age > 120)) {
+                messageDiv.textContent = 'Age must be between 13 and 120.';
+                messageDiv.className = 'profile-message error';
+                messageDiv.classList.remove('hidden');
+                return;
+            }
+            
+            try {
+                const response = await fetch('../api/update_profile.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    messageDiv.textContent = 'Profile updated successfully!';
+                    messageDiv.className = 'profile-message success';
+                    messageDiv.classList.remove('hidden');
+                    
+                    // Update sidebar display
+                    const fullName = `${formData.first_name} ${formData.last_name}`.trim();
+                    document.getElementById('userName').textContent = fullName;
+                    document.getElementById('userEmail').textContent = formData.email;
+                    
+                    // Update local storage
+                    const updatedUser = JSON.parse(localStorage.getItem('user'));
+                    updatedUser.name = fullName;
+                    updatedUser.email = formData.email;
+                    localStorage.setItem('user', JSON.stringify(updatedUser));
+                } else {
+                    messageDiv.textContent = data.message || 'Failed to update profile.';
+                    messageDiv.className = 'profile-message error';
+                    messageDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Profile update error:', error);
+                messageDiv.textContent = 'Network error. Please try again.';
+                messageDiv.className = 'profile-message error';
+                messageDiv.classList.remove('hidden');
+            }
+        });
+    </script>
+
+    <style>
+        .dashboard-container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+            background: var(--dark-bg);
+        }
+
+        .dashboard-sidebar {
+            width: 280px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem;
+        }
+
+        .user-profile {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .user-avatar {
+            font-size: 4rem;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .user-profile h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .user-profile p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .dashboard-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .dashboard-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-nav-link:hover,
+        .dashboard-nav-link.active {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .dashboard-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .dashboard-section {
+            display: none;
+        }
+
+        .dashboard-section.active {
+            display: block;
+        }
+
+        .dashboard-section h2 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            background: var(--primary-orange);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-info h3 {
+            color: var(--text-primary);
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .wishlist-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .wishlist-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .wishlist-details {
+            padding: 1rem;
+        }
+
+        .wishlist-details h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .wishlist-price {
+            margin-bottom: 1rem;
+        }
+
+        .wishlist-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .keys-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .key-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .key-game {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .key-game img {
+            border-radius: 4px;
+        }
+
+        .key-details h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .key-details p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .key-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .password-message {
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .password-message.success {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid #28a745;
+            color: #28a745;
+        }
+
+        .password-message.error {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+        }
+
+        .password-message.hidden {
+            display: none;
+        }
+
+        .profile-message {
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .profile-message.success {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid #28a745;
+            color: #28a745;
+        }
+
+        .profile-message.error {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+        }
+
+        .profile-message.hidden {
+            display: none;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .form-input[type="textarea"],
+        textarea.form-input {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .profile-form {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .dashboard-sidebar {
+                width: 100%;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+
+    <style>
+        /* Login Button Styling */
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+            color: white;
+        }
+
+        /* Logout Button Styling */
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--danger-red);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            color: white;
+        }
+    </style>
+
+    <!-- Search functionality -->
+    <script>
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.trim();
+            
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}`);
+            }
+        }
+
+        // Allow Enter key to trigger search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>

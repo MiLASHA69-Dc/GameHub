@@ -1,0 +1,258 @@
+<!-- Flash Sale Banner -->
+<div class="flash-sale-banner">
+    <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+</div>
+
+<!-- Header -->
+<header class="header">
+    <nav class="nav-container">
+        <a href="../index.html" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-gamepad"></i>
+            </div>
+            GAMEHUB
+        </a>
+
+        <div class="search-container">
+            <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+            <button class="search-btn" onclick="performSearch()">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <div class="nav-links">
+            <a href="bundles.html" class="nav-link">Bundles</a>
+            <a href="upcoming.html" class="nav-link">Upcoming Games</a>
+            <a href="new-releases.html" class="nav-link">New Releases</a>
+            <a href="support.html" class="nav-link">Support</a>
+        </div>
+
+        <div class="user-actions">
+            <div class="wishlist-icon">
+                <i class="fas fa-heart"></i>
+                <span class="badge" id="wishlistCount">0</span>
+            </div>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="badge" id="cartCount">0</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <a href="login.html" class="login-btn" id="loginButton">
+                <i class="fas fa-user"></i>
+                Login
+            </a>
+        </div>
+    </nav>
+</header>
+
+<!-- Secondary Navigation -->
+<nav class="secondary-nav">
+    <div class="secondary-nav-container">
+        <a href="discover.html" class="secondary-nav-link">Discover</a>
+        <a href="categories.html" class="secondary-nav-link">Categories</a>
+        <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+        <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+        <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+    </div>
+</nav>
+
+<script>
+// Navigation functionality
+function performSearch() {
+    const searchTerm = document.getElementById('searchInput').value;
+    if (searchTerm.trim()) {
+        // Redirect to index with search parameter
+        window.location.href = `../index.html?search=${encodeURIComponent(searchTerm)}`;
+    }
+}
+
+// Check if user is logged in and update navigation
+document.addEventListener('DOMContentLoaded', function() {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const loginButton = document.getElementById('loginButton');
+    
+    if (user.isLoggedIn) {
+        loginButton.innerHTML = `
+            <i class="fas fa-user-circle"></i>
+            ${user.name || 'User'}
+        `;
+        loginButton.href = 'dashboard.html';
+        loginButton.onclick = null;
+    }
+});
+
+// Handle Enter key in search
+document.getElementById('searchInput')?.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        performSearch();
+    }
+});
+</script>
+
+<style>
+/* Flash Sale Banner */
+.flash-sale-banner {
+    background: var(--danger-red);
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* Navigation Styles */
+.search-container {
+    display: flex;
+    align-items: center;
+    background: var(--darker-bg);
+    border-radius: 6px;
+    padding: 0.5rem;
+    flex: 1;
+    max-width: 400px;
+    margin: 0 2rem;
+}
+
+.search-bar {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.search-bar::placeholder {
+    color: var(--text-muted);
+}
+
+.search-btn {
+    background: var(--primary-orange);
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-btn:hover {
+    background: var(--hover-orange);
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.wishlist-icon, .cart-icon {
+    position: relative;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.wishlist-icon:hover, .cart-icon:hover {
+    color: var(--primary-orange);
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--danger-red);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-icon span:last-child {
+    position: static;
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.login-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--primary-orange);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background: #e55a00;
+    color: white;
+}
+
+.secondary-nav {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.5rem 0;
+}
+
+.secondary-nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2rem;
+    padding: 0 2rem;
+}
+
+.secondary-nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.secondary-nav-link:hover {
+    color: var(--primary-orange);
+    border-bottom-color: var(--primary-orange);
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .search-container {
+        margin: 0;
+        max-width: none;
+    }
+    
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .secondary-nav-container {
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+}
+</style>

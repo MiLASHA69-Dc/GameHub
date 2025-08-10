@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - GameHub</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+            </a>
+
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="bundles.html" class="nav-link">Bundles</a>
+                <a href="upcoming.html" class="nav-link">Upcoming Games</a>
+                <a href="new-releases.html" class="nav-link">New Releases</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Wishlist Dashboard -->
+    <section class="wishlist-dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="wishlist-info">
+                    <h1><i class="fas fa-heart"></i> My Wishlist</h1>
+                    <p>Keep track of games you want to buy</p>
+                </div>
+                <div class="wishlist-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-heart"></i>
+                        <div class="stat-content">
+                            <span class="stat-number" id="totalWishlistItems">8</span>
+                            <span class="stat-label">Items</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div class="stat-content">
+                            <span class="stat-number" id="totalWishlistValue">$347.92</span>
+                            <span class="stat-label">Total Value</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-tags"></i>
+                        <div class="stat-content">
+                            <span class="stat-number" id="totalSavings">$152.08</span>
+                            <span class="stat-label">Potential Savings</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist Actions -->
+            <div class="wishlist-actions">
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="addAllToCart()">
+                        <i class="fas fa-shopping-cart"></i> Add All to Cart
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearWishlist()">
+                        <i class="fas fa-trash"></i> Clear Wishlist
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareWishlist()">
+                        <i class="fas fa-share"></i> Share Wishlist
+                    </button>
+                </div>
+                
+                <div class="wishlist-filters">
+                    <select class="filter-select" onchange="sortWishlist(this.value)">
+                        <option value="date-added">Date Added</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name-az">Name: A-Z</option>
+                        <option value="name-za">Name: Z-A</option>
+                        <option value="discount">Biggest Discount</option>
+                    </select>
+                    
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="setView('grid')" data-view="grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" onclick="setView('list')" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Alerts -->
+            <div class="price-alerts">
+                <div class="alert alert-success">
+                    <i class="fas fa-bell"></i>
+                    <span><strong>Cyberpunk 2077</strong> is now 50% off! Perfect time to buy.</span>
+                    <button class="alert-close" onclick="dismissAlert(this)">&times;</button>
+                </div>
+            </div>
+
+            <!-- Wishlist Items -->
+            <div class="wishlist-grid" id="wishlistGrid">
+                <!-- Wishlist items will be loaded here -->
+            </div>
+
+            <!-- Empty Wishlist -->
+            <div class="empty-wishlist hidden" id="emptyWishlist">
+                <i class="fas fa-heart-broken"></i>
+                <h3>Your wishlist is empty</h3>
+                <p>Start browsing our games to add items to your wishlist!</p>
+                <a href="../index.html" class="btn btn-primary">Browse Games</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Alert Modal -->
+    <div id="priceAlertModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closePriceAlertModal()">&times;</span>
+            <h2>Set Price Alert</h2>
+            <div class="price-alert-form">
+                <div class="game-info" id="alertGameInfo">
+                    <!-- Game info will be populated here -->
+                </div>
+                <div class="form-group">
+                    <label>Alert me when price drops below:</label>
+                    <div class="price-input-group">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" class="price-input" step="0.01" min="0" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" checked> Email notifications
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="closePriceAlertModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="setPriceAlert()">Set Alert</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/main.js"></script>
+    <script>
+        const wishlistItems = [
+            {
+                id: 1,
+                name: "Cyberpunk 2077",
+                price: 29.99,
+                originalPrice: 59.99,
+                discount: 50,
+                image: "https://via.placeholder.com/280x200/1a1a2e/fff?text=Cyberpunk+2077",
+                rating: 7.8,
+                releaseDate: "2020-12-10",
+                dateAdded: "2024-01-15",
+                onSale: true,
+                platform: ["PC", "PlayStation", "Xbox"]
+            },
+            {
+                id: 2,
+                name: "Elden Ring",
+                price: 59.99,
+                originalPrice: 59.99,
+                discount: 0,
+                image: "https://via.placeholder.com/280x200/4b0082/fff?text=Elden+Ring",
+                rating: 9.6,
+                releaseDate: "2022-02-25",
+                dateAdded: "2024-01-10",
+                onSale: false,
+                platform: ["PC", "PlayStation", "Xbox"]
+            },
+            {
+                id: 3,
+                name: "The Witcher 3: Wild Hunt",
+                price: 19.99,
+                originalPrice: 39.99,
+                discount: 50,
+                image: "https://via.placeholder.com/280x200/6a4c93/fff?text=The+Witcher+3",
+                rating: 9.3,
+                releaseDate: "2015-05-19",
+                dateAdded: "2024-01-08",
+                onSale: true,
+                platform: ["PC", "PlayStation", "Xbox", "Switch"]
+            },
+            {
+                id: 4,
+                name: "Baldur's Gate 3",
+                price: 59.99,
+                originalPrice: 59.99,
+                discount: 0,
+                image: "https://via.placeholder.com/280x200/8b4513/fff?text=Baldurs+Gate+3",
+                rating: 9.6,
+                releaseDate: "2023-08-03",
+                dateAdded: "2024-01-05",
+                onSale: false,
+                platform: ["PC", "PlayStation", "Xbox"]
+            },
+            {
+                id: 5,
+                name: "Hades",
+                price: 14.99,
+                originalPrice: 24.99,
+                discount: 40,
+                image: "https://via.placeholder.com/280x200/ff8c00/fff?text=Hades",
+                rating: 9.3,
+                releaseDate: "2020-09-17",
+                dateAdded: "2024-01-03",
+                onSale: true,
+                platform: ["PC", "PlayStation", "Xbox", "Switch"]
+            },
+            {
+                id: 6,
+                name: "Sekiro: Shadows Die Twice",
+                price: 39.99,
+                originalPrice: 59.99,
+                discount: 33,
+                image: "https://via.placeholder.com/280x200/2d5016/fff?text=Sekiro",
+                rating: 9.0,
+                releaseDate: "2019-03-22",
+                dateAdded: "2024-01-01",
+                onSale: true,
+                platform: ["PC", "PlayStation", "Xbox"]
+            },
+            {
+                id: 7,
+                name: "Hollow Knight",
+                price: 14.99,
+                originalPrice: 14.99,
+                discount: 0,
+                image: "https://via.placeholder.com/280x200/333/fff?text=Hollow+Knight",
+                rating: 9.0,
+                releaseDate: "2017-02-24",
+                dateAdded: "2023-12-28",
+                onSale: false,
+                platform: ["PC", "PlayStation", "Xbox", "Switch"]
+            },
+            {
+                id: 8,
+                name: "Control",
+                price: 9.99,
+                originalPrice: 29.99,
+                discount: 67,
+                image: "https://via.placeholder.com/280x200/8b0000/fff?text=Control",
+                rating: 8.2,
+                releaseDate: "2019-08-27",
+                dateAdded: "2023-12-25",
+                onSale: true,
+                platform: ["PC", "PlayStation", "Xbox"]
+            }
+        ];
+
+        let currentView = 'grid';
+        let currentSort = 'date-added';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            displayWishlist();
+            updateWishlistStats();
+        });
+
+        function displayWishlist() {
+            const sortedItems = sortWishlistItems(wishlistItems, currentSort);
+            const grid = document.getElementById('wishlistGrid');
+            const emptyWishlist = document.getElementById('emptyWishlist');
+            
+            if (sortedItems.length === 0) {
+                grid.classList.add('hidden');
+                emptyWishlist.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            emptyWishlist.classList.add('hidden');
+            grid.className = `wishlist-${currentView}`;
+            grid.innerHTML = '';
+
+            sortedItems.forEach(item => {
+                const itemCard = document.createElement('div');
+                itemCard.className = 'wishlist-item';
+                
+                const discountBadge = item.discount > 0 ? 
+                    `<div class="discount-badge">-${item.discount}%</div>` : '';
+                
+                const saleBadge = item.onSale ? 
+                    `<div class="sale-badge">ON SALE</div>` : '';
+
+                itemCard.innerHTML = `
+                    <div class="item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                        ${discountBadge}
+                        ${saleBadge}
+                        <div class="item-overlay">
+                            <button class="btn btn-sm btn-primary" onclick="addToCart(${item.id})">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="btn btn-sm btn-secondary" onclick="removeFromWishlist(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">${item.name}</h3>
+                        <div class="item-rating">
+                            <div class="stars">
+                                ${generateStars(item.rating)}
+                            </div>
+                            <span class="rating-number">(${item.rating})</span>
+                        </div>
+                        <div class="item-platforms">
+                            ${item.platform.map(p => `<span class="platform-tag">${p}</span>`).join('')}
+                        </div>
+                        <div class="item-pricing">
+                            <span class="current-price">$${item.price}</span>
+                            ${item.originalPrice !== item.price ? `<span class="original-price">$${item.originalPrice}</span>` : ''}
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-sm btn-primary item-cart-btn" onclick="addToCart(${item.id})">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="btn btn-sm btn-secondary" onclick="setPriceAlertModal(${item.id})">
+                                <i class="fas fa-bell"></i> Price Alert
+                            </button>
+                        </div>
+                        <div class="item-meta">
+                            <span class="added-date">Added ${formatDateShort(item.dateAdded)}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(itemCard);
+            });
+        }
+
+        function sortWishlistItems(items, sortBy) {
+            return [...items].sort((a, b) => {
+                switch (sortBy) {
+                    case 'date-added':
+                        return new Date(b.dateAdded) - new Date(a.dateAdded);
+                    case 'price-low':
+                        return a.price - b.price;
+                    case 'price-high':
+                        return b.price - a.price;
+                    case 'name-az':
+                        return a.name.localeCompare(b.name);
+                    case 'name-za':
+                        return b.name.localeCompare(a.name);
+                    case 'discount':
+                        return b.discount - a.discount;
+                    default:
+                        return 0;
+                }
+            });
+        }
+
+        function sortWishlist(sortBy) {
+            currentSort = sortBy;
+            displayWishlist();
+        }
+
+        function setView(view) {
+            currentView = view;
+            
+            // Update active view button
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-view="${view}"]`).classList.add('active');
+            
+            displayWishlist();
+        }
+
+        function updateWishlistStats() {
+            const totalItems = wishlistItems.length;
+            const totalValue = wishlistItems.reduce((sum, item) => sum + item.price, 0);
+            const totalOriginalValue = wishlistItems.reduce((sum, item) => sum + item.originalPrice, 0);
+            const totalSavings = totalOriginalValue - totalValue;
+
+            document.getElementById('totalWishlistItems').textContent = totalItems;
+            document.getElementById('totalWishlistValue').textContent = `$${totalValue.toFixed(2)}`;
+            document.getElementById('totalSavings').textContent = `$${totalSavings.toFixed(2)}`;
+            document.getElementById('wishlistCount').textContent = totalItems;
+        }
+
+        function addToCart(itemId) {
+            const item = wishlistItems.find(i => i.id === itemId);
+            if (item) {
+                alert(`Added "${item.name}" to cart for $${item.price}!`);
+                // Remove from wishlist after adding to cart
+                removeFromWishlist(itemId);
+            }
+        }
+
+        function removeFromWishlist(itemId) {
+            const index = wishlistItems.findIndex(i => i.id === itemId);
+            if (index > -1) {
+                const item = wishlistItems[index];
+                if (confirm(`Remove "${item.name}" from your wishlist?`)) {
+                    wishlistItems.splice(index, 1);
+                    displayWishlist();
+                    updateWishlistStats();
+                }
+            }
+        }
+
+        function addAllToCart() {
+            if (wishlistItems.length === 0) return;
+            
+            const totalValue = wishlistItems.reduce((sum, item) => sum + item.price, 0);
+            if (confirm(`Add all ${wishlistItems.length} items to cart for $${totalValue.toFixed(2)}?`)) {
+                alert(`Added all ${wishlistItems.length} items to cart!`);
+                wishlistItems.length = 0;
+                displayWishlist();
+                updateWishlistStats();
+            }
+        }
+
+        function clearWishlist() {
+            if (wishlistItems.length === 0) return;
+            
+            if (confirm(`Remove all ${wishlistItems.length} items from your wishlist?`)) {
+                wishlistItems.length = 0;
+                displayWishlist();
+                updateWishlistStats();
+            }
+        }
+
+        function shareWishlist() {
+            const shareData = {
+                title: 'My GameHub Wishlist',
+                text: `Check out my gaming wishlist with ${wishlistItems.length} awesome games!`,
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Wishlist link copied to clipboard!');
+                });
+            }
+        }
+
+        function setPriceAlertModal(itemId) {
+            const item = wishlistItems.find(i => i.id === itemId);
+            if (!item) return;
+
+            const modal = document.getElementById('priceAlertModal');
+            const gameInfo = document.getElementById('alertGameInfo');
+            
+            gameInfo.innerHTML = `
+                <div class="alert-game-preview">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="game-details">
+                        <h4>${item.name}</h4>
+                        <div class="current-price">Current Price: $${item.price}</div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closePriceAlertModal() {
+            document.getElementById('priceAlertModal').classList.add('hidden');
+        }
+
+        function setPriceAlert() {
+            const priceInput = document.querySelector('.price-input');
+            const alertPrice = parseFloat(priceInput.value);
+            
+            if (!alertPrice || alertPrice <= 0) {
+                alert('Please enter a valid price.');
+                return;
+            }
+            
+            alert(`Price alert set! You'll be notified when the price drops below $${alertPrice.toFixed(2)}.`);
+            closePriceAlertModal();
+        }
+
+        function dismissAlert(alertElement) {
+            alertElement.parentNode.style.display = 'none';
+        }
+
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating / 2);
+            const halfStar = (rating % 2) >= 1;
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+            
+            let stars = '';
+            for (let i = 0; i < fullStars; i++) stars += '<i class="fas fa-star"></i>';
+            if (halfStar) stars += '<i class="fas fa-star-half-alt"></i>';
+            for (let i = 0; i < emptyStars; i++) stars += '<i class="far fa-star"></i>';
+            
+            return stars;
+        }
+
+        function formatDateShort(dateStr) {
+            const date = new Date(dateStr);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return 'yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            if (diffDays < 30) return `${Math.ceil(diffDays / 7)} weeks ago`;
+            if (diffDays < 365) return `${Math.ceil(diffDays / 30)} months ago`;
+            return `${Math.ceil(diffDays / 365)} years ago`;
+        }
+
+        function toggleAccountMenu() {
+            const menu = document.getElementById('accountMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = '../login.html';
+        }
+    </script>
+
+    <style>
+        .wishlist-dashboard {
+            background: var(--dark-bg);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .wishlist-info h1 {
+            color: var(--text-primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .wishlist-info h1 i {
+            color: var(--primary-orange);
+        }
+
+        .wishlist-info p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .wishlist-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 180px;
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--primary-orange);
+        }
+
+        .stat-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .wishlist-actions {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .wishlist-filters {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            background: var(--darker-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            min-width: 150px;
+        }
+
+        .view-toggle {
+            display: flex;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .view-btn {
+            background: var(--darker-bg);
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn:hover,
+        .view-btn.active {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .price-alerts {
+            margin-bottom: 2rem;
+        }
+
+        .alert {
+            background: rgba(39, 174, 96, 0.1);
+            border: 1px solid #27ae60;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .alert i {
+            color: #27ae60;
+            font-size: 1.2rem;
+        }
+
+        .alert span {
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .alert-close {
+            background: none;
+            border: none;
+            color: #27ae60;
+            font-size: 1.5rem;
+            cursor: pointer;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .wishlist-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .wishlist-list .wishlist-item {
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .wishlist-list .item-image {
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        .wishlist-list .item-details {
+            flex: 1;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .wishlist-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .wishlist-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-orange);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.1);
+        }
+
+        .item-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .wishlist-item:hover .item-image img {
+            transform: scale(1.05);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            background: #e74c3c;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .sale-badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .wishlist-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .item-details {
+            padding: 1.5rem;
+        }
+
+        .item-name {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-weight: bold;
+        }
+
+        .item-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .stars {
+            color: #ffd700;
+        }
+
+        .rating-number {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .item-platforms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .platform-tag {
+            background: var(--darker-bg);
+            color: var(--text-secondary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .item-pricing {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            color: var(--primary-orange);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .original-price {
+            color: var(--text-secondary);
+            text-decoration: line-through;
+            font-size: 1rem;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .item-cart-btn {
+            flex: 1;
+        }
+
+        .item-meta {
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.8rem;
+        }
+
+        .added-date {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .empty-wishlist {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .empty-wishlist i {
+            font-size: 4rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .empty-wishlist h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .empty-wishlist p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .wishlist-icon.active {
+            color: var(--primary-orange);
+        }
+
+        /* Price Alert Modal Styles */
+        .price-alert-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .alert-game-preview {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--darker-bg);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .alert-game-preview img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .game-details h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .current-price {
+            color: var(--primary-orange);
+            font-weight: bold;
+        }
+
+        .price-input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .currency-symbol {
+            position: absolute;
+            left: 1rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .price-input {
+            background: var(--darker-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.8rem 1rem 0.8rem 2rem;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .price-input:focus {
+            outline: none;
+            border-color: var(--primary-orange);
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input[type="checkbox"] {
+            accent-color: var(--primary-orange);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .wishlist-stats {
+                justify-content: center;
+            }
+            
+            .wishlist-actions {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .wishlist-filters {
+                justify-content: center;
+            }
+            
+            .wishlist-list .wishlist-item {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .wishlist-list .item-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+
+    <style>
+        /* Login Button Styling */
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+            color: white;
+        }
+    </style>
+
+    <!-- Search functionality -->
+    <script>
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.trim();
+            
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}`);
+            }
+        }
+
+        // Allow Enter key to trigger search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>

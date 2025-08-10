@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Releases - GameHub</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+            </a>
+
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="bundles.html" class="nav-link">Bundles</a>
+                <a href="upcoming.html" class="nav-link">Upcoming Games</a>
+                <a href="new-releases.html" class="nav-link">New Releases</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="releases-hero">
+        <div class="hero-content">
+            <h1>New Releases</h1>
+            <p>Discover the latest games available now on GameHub</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">This Week</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">200+</span>
+                    <span class="stat-label">This Month</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">Launch</span>
+                    <span class="stat-label">Day Deals</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-controls">
+                <div class="time-filters">
+                    <button class="filter-btn active" onclick="filterByTime('this-week')">This Week</button>
+                    <button class="filter-btn" onclick="filterByTime('last-week')">Last Week</button>
+                    <button class="filter-btn" onclick="filterByTime('this-month')">This Month</button>
+                    <button class="filter-btn" onclick="filterByTime('all')">All Releases</button>
+                </div>
+                <div class="sort-controls">
+                    <select class="sort-select" onchange="sortGames(this.value)">
+                        <option value="newest">Newest First</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">User Rating</option>
+                        <option value="discount">Biggest Discount</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured New Release -->
+    <section class="featured-release">
+        <div class="container">
+            <div class="featured-card">
+                <div class="featured-image">
+                    <img src="https://via.placeholder.com/600x400/1a1a2e/fff?text=Featured+Game" alt="Featured Game">
+                    <div class="new-badge">NEW</div>
+                    <div class="discount-badge">-25%</div>
+                </div>
+                <div class="featured-info">
+                    <h2>Lords of the Fallen</h2>
+                    <p class="featured-description">
+                        Experience an epic dark fantasy action RPG featuring challenging combat, 
+                        stunning visuals, and a gripping storyline in a world caught between realms.
+                    </p>
+                    <div class="featured-details">
+                        <span class="genre">Action RPG</span>
+                        <span class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            4.5/5
+                        </span>
+                        <span class="platforms">
+                            <i class="fab fa-windows"></i>
+                            <i class="fab fa-steam"></i>
+                        </span>
+                    </div>
+                    <div class="featured-price">
+                        <span class="current-price">$44.99</span>
+                        <span class="original-price">$59.99</span>
+                        <span class="launch-offer">Launch Week Special</span>
+                    </div>
+                    <div class="featured-actions">
+                        <button class="btn btn-primary btn-large">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-heart"></i> Wishlist
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-info-circle"></i> More Info
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Releases Grid -->
+    <section class="new-releases">
+        <div class="container">
+            <h2>All New Releases</h2>
+            <div class="releases-grid" id="releasesGrid">
+                <!-- Games will be loaded here -->
+            </div>
+            
+            <div class="load-more">
+                <button class="btn btn-secondary" onclick="loadMoreReleases()">
+                    Load More Games
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script src="../assets/main.js"></script>
+    <script>
+        const newReleases = [
+            {
+                id: 1,
+                title: "Pizza Tower",
+                price: 19.99,
+                originalPrice: 24.99,
+                discount: 20,
+                releaseDate: "2024-01-26",
+                image: "https://via.placeholder.com/280x200/ff8c00/fff?text=Pizza+Tower",
+                genre: "Platformer",
+                rating: 4.8,
+                platforms: ["Windows", "Steam"],
+                description: "A fast-paced 2D platformer inspired by Wario Land.",
+                isNew: true,
+                category: "this-week"
+            },
+            {
+                id: 2,
+                title: "Hogwarts Legacy",
+                price: 59.99,
+                originalPrice: null,
+                discount: 0,
+                releaseDate: "2024-02-10",
+                image: "https://via.placeholder.com/280x200/6a4c93/fff?text=Hogwarts+Legacy",
+                genre: "Action RPG",
+                rating: 4.6,
+                platforms: ["Windows", "Steam"],
+                description: "Experience the wizarding world like never before.",
+                isNew: true,
+                category: "this-week"
+            },
+            {
+                id: 3,
+                title: "Atomic Heart",
+                price: 49.99,
+                originalPrice: 59.99,
+                discount: 17,
+                releaseDate: "2024-02-21",
+                image: "https://via.placeholder.com/280x200/8b0000/fff?text=Atomic+Heart",
+                genre: "Action FPS",
+                rating: 4.2,
+                platforms: ["Windows", "Steam"],
+                description: "An alternate universe USSR where technology and nature collide.",
+                isNew: true,
+                category: "last-week"
+            },
+            {
+                id: 4,
+                title: "Resident Evil 4 Remake",
+                price: 39.99,
+                originalPrice: 59.99,
+                discount: 33,
+                releaseDate: "2024-03-24",
+                image: "https://via.placeholder.com/280x200/2d5016/fff?text=RE4+Remake",
+                genre: "Survival Horror",
+                rating: 4.9,
+                platforms: ["Windows", "Steam"],
+                description: "The beloved survival horror classic returns, rebuilt from the ground up.",
+                isNew: false,
+                category: "this-month"
+            },
+            {
+                id: 5,
+                title: "Dead Space Remake",
+                price: 29.99,
+                originalPrice: 69.99,
+                discount: 57,
+                releaseDate: "2024-01-27",
+                image: "https://via.placeholder.com/280x200/4b0082/fff?text=Dead+Space",
+                genre: "Survival Horror",
+                rating: 4.7,
+                platforms: ["Windows", "Steam"],
+                description: "The sci-fi survival horror classic has been completely rebuilt.",
+                isNew: false,
+                category: "this-month"
+            },
+            {
+                id: 6,
+                title: "Wo Long: Fallen Dynasty",
+                price: 44.99,
+                originalPrice: 59.99,
+                discount: 25,
+                releaseDate: "2024-03-03",
+                image: "https://via.placeholder.com/280x200/1a1a2e/fff?text=Wo+Long",
+                genre: "Action RPG",
+                rating: 4.3,
+                platforms: ["Windows", "Steam"],
+                description: "A dark fantasy three kingdoms action RPG.",
+                isNew: false,
+                category: "this-month"
+            }
+        ];
+
+        let currentFilter = 'this-week';
+        let currentSort = 'newest';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNewReleases();
+        });
+
+        function loadNewReleases() {
+            let filteredGames = filterGames(currentFilter);
+            filteredGames = sortGames(filteredGames, currentSort);
+            
+            const grid = document.getElementById('releasesGrid');
+            grid.innerHTML = '';
+
+            filteredGames.forEach(game => {
+                const gameCard = createReleaseCard(game);
+                grid.appendChild(gameCard);
+            });
+        }
+
+        function createReleaseCard(game) {
+            const card = document.createElement('div');
+            card.className = 'release-card';
+            
+            const releaseDate = new Date(game.releaseDate);
+            const daysAgo = Math.floor((new Date() - releaseDate) / (1000 * 60 * 60 * 24));
+            
+            const discountBadge = game.discount > 0 ? 
+                `<div class="discount-badge">-${game.discount}%</div>` : '';
+            
+            const newBadge = game.isNew ? 
+                `<div class="new-badge">NEW</div>` : '';
+
+            card.innerHTML = `
+                <div class="release-image">
+                    <img src="${game.image}" alt="${game.title}">
+                    ${newBadge}
+                    ${discountBadge}
+                    <div class="release-date">${daysAgo} days ago</div>
+                </div>
+                <div class="release-info">
+                    <h3 class="release-title">${game.title}</h3>
+                    <p class="release-genre">${game.genre}</p>
+                    <p class="release-description">${game.description}</p>
+                    
+                    <div class="release-rating">
+                        <div class="stars">
+                            ${generateStars(game.rating)}
+                        </div>
+                        <span class="rating-value">${game.rating}/5</span>
+                    </div>
+                    
+                    <div class="platforms">
+                        ${game.platforms.map(platform => 
+                            `<span class="platform-tag">${platform}</span>`
+                        ).join('')}
+                    </div>
+                    
+                    <div class="release-price">
+                        <span class="current-price">$${game.price}</span>
+                        ${game.originalPrice ? `<span class="original-price">$${game.originalPrice}</span>` : ''}
+                    </div>
+                    
+                    <div class="release-actions">
+                        <button class="btn btn-primary" onclick="addToCart(${game.id})">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        <button class="btn btn-secondary" onclick="addToWishlist(${game.id})">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            
+            let stars = '';
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            
+            return stars;
+        }
+
+        function filterByTime(timeFilter) {
+            currentFilter = timeFilter;
+            
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadNewReleases();
+        }
+
+        function filterGames(filter) {
+            if (filter === 'all') {
+                return newReleases;
+            }
+            
+            return newReleases.filter(game => game.category === filter);
+        }
+
+        function sortGames(games, sortType) {
+            const sortedGames = [...games];
+            
+            switch (sortType) {
+                case 'newest':
+                    return sortedGames.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+                case 'price-low':
+                    return sortedGames.sort((a, b) => a.price - b.price);
+                case 'price-high':
+                    return sortedGames.sort((a, b) => b.price - a.price);
+                case 'rating':
+                    return sortedGames.sort((a, b) => b.rating - a.rating);
+                case 'discount':
+                    return sortedGames.sort((a, b) => b.discount - a.discount);
+                default:
+                    return sortedGames;
+            }
+        }
+
+        function sortGames(sortType) {
+            currentSort = sortType;
+            loadNewReleases();
+        }
+
+        function loadMoreReleases() {
+            alert('Loading more releases...');
+        }
+
+        function addToCart(gameId) {
+            alert(`Added game ${gameId} to cart!`);
+        }
+
+        function addToWishlist(gameId) {
+            alert(`Added game ${gameId} to wishlist!`);
+        }
+    </script>
+
+    <!-- Search functionality -->
+    <script>
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.trim();
+            
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}`);
+            }
+        }
+
+        // Allow Enter key to trigger search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+    
+    <style>
+        .releases-hero {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .releases-hero h1 {
+            color: var(--text-primary);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .releases-hero p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            color: var(--primary-orange);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .filter-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .filter-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .time-filters {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-orange);
+            border-color: var(--primary-orange);
+            color: white;
+        }
+
+        .sort-select {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+        }
+
+        .featured-release {
+            background: var(--dark-bg);
+            padding: 4rem 2rem;
+        }
+
+        .featured-card {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .featured-image {
+            position: relative;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-info {
+            padding: 2rem;
+        }
+
+        .featured-info h2 {
+            color: var(--text-primary);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .featured-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-details {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .genre {
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .rating {
+            color: var(--warning-yellow);
+        }
+
+        .platforms i {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .featured-price {
+            margin-bottom: 2rem;
+        }
+
+        .current-price {
+            color: var(--primary-orange);
+            font-size: 2rem;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .original-price {
+            color: var(--text-secondary);
+            text-decoration: line-through;
+            margin-right: 1rem;
+        }
+
+        .launch-offer {
+            background: var(--success-green);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .featured-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        .new-releases {
+            background: var(--dark-bg);
+            padding: 4rem 2rem;
+        }
+
+        .new-releases h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .releases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .release-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .release-image {
+            position: relative;
+        }
+
+        .release-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .new-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--success-green);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .release-date {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--text-secondary);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        .release-info {
+            padding: 1.5rem;
+        }
+
+        .release-title {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .release-genre {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .release-description {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .release-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: var(--warning-yellow);
+        }
+
+        .rating-value {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .platforms {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .platform-tag {
+            background: var(--darker-bg);
+            color: var(--text-secondary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        .release-price {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            color: var(--primary-orange);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .original-price {
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+
+        .release-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .load-more {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .featured-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .time-filters {
+                flex-wrap: wrap;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+
+    <style>
+        /* Login Button Styling */
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+            color: white;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Bundles - GameHub</title>
+    <link rel="stylesheet" href="../assets/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Flash Sale Banner -->
+    <div class="flash-sale-banner">
+        <i class="fas fa-fire"></i> SUMMER SALE - Up to 90% OFF! <i class="fas fa-fire"></i>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                GAMEHUB
+            </a>
+
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search PC, Mac, Linux Games" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="bundles.html" class="nav-link">Bundles</a>
+                <a href="upcoming.html" class="nav-link">Upcoming Games</a>
+                <a href="new-releases.html" class="nav-link">New Releases</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+
+            <div class="user-actions">
+                <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cartCount">0</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Secondary Navigation -->
+    <nav class="secondary-nav">
+        <div class="secondary-nav-container">
+            <a href="discover.html" class="secondary-nav-link">Discover</a>
+            <a href="categories.html" class="secondary-nav-link">Categories</a>
+            <a href="bundles.html" class="secondary-nav-link">Bundles</a>
+            <a href="mystery.html" class="secondary-nav-link">Mystery</a>
+            <a href="fantasy-verse.html" class="secondary-nav-link">FantasyVerse</a>
+        </div>
+    </nav>
+
+    <!-- Bundle Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Amazing Game Bundles</h1>
+            <p>Save up to 95% with our curated game bundles</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Bundles Available</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Max Savings</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">1M+</span>
+                    <span class="stat-label">Happy Customers</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bundle Categories -->
+    <section class="bundle-categories">
+        <div class="container">
+            <h2>Bundle Categories</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="filterBundles('star-deal')">
+                    <i class="fas fa-star"></i>
+                    <h3>Star Deal Bundles</h3>
+                    <p>Premium bundles with the best games</p>
+                </div>
+                <div class="category-card" onclick="filterBundles('mystery')">
+                    <i class="fas fa-question"></i>
+                    <h3>Mystery Bundles</h3>
+                    <p>Surprise bundles with hidden games</p>
+                </div>
+                <div class="category-card" onclick="filterBundles('build-your-own')">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Build Your Own</h3>
+                    <p>Choose your games, set your price</p>
+                </div>
+                <div class="category-card" onclick="filterBundles('limited-time')">
+                    <i class="fas fa-clock"></i>
+                    <h3>Limited Time</h3>
+                    <p>Special offers ending soon</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Bundles -->
+    <section class="featured-bundles">
+        <div class="container">
+            <h2>Featured Bundles</h2>
+            <div class="bundles-grid" id="bundlesGrid">
+                <!-- Bundles will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <script src="../assets/main.js"></script>
+    <script>
+        const bundleData = [
+            {
+                id: 1,
+                title: "Platinum Collection Bundle",
+                price: 24.99,
+                originalPrice: 149.99,
+                discount: 83,
+                gamesCount: 12,
+                image: "https://via.placeholder.com/400x200/6a4c93/fff?text=Platinum+Bundle",
+                category: "star-deal",
+                timeLeft: "5 days left",
+                features: ["12 Steam Games", "Bonus Content", "Soundtracks"],
+                games: [
+                    "Lords of the Fallen",
+                    "Cyberpunk 2077",
+                    "The Witcher 3: Wild Hunt",
+                    "And 9 more..."
+                ]
+            },
+            {
+                id: 2,
+                title: "Mystery Gamer Bundle",
+                price: 9.99,
+                originalPrice: 79.99,
+                discount: 87,
+                gamesCount: 8,
+                image: "https://via.placeholder.com/400x200/2d5016/fff?text=Mystery+Bundle",
+                category: "mystery",
+                timeLeft: "3 days left",
+                features: ["8 Steam Games", "Surprise Content", "Value Guaranteed"],
+                games: [
+                    "??? Hidden Game 1",
+                    "??? Hidden Game 2",
+                    "??? Hidden Game 3",
+                    "And 5 more mysteries..."
+                ]
+            },
+            {
+                id: 3,
+                title: "Build Your Action Bundle",
+                price: 19.99,
+                originalPrice: 0,
+                discount: 0,
+                gamesCount: "Choose 5",
+                image: "https://via.placeholder.com/400x200/ff8c00/fff?text=Build+Your+Own",
+                category: "build-your-own",
+                timeLeft: "Always available",
+                features: ["Choose 5 Games", "Set Your Price", "Custom Bundle"],
+                games: [
+                    "Pick from 50+ games",
+                    "Action & Adventure",
+                    "Indie Favorites",
+                    "AAA Titles"
+                ]
+            },
+            {
+                id: 4,
+                title: "Flash Friday Bundle",
+                price: 4.99,
+                originalPrice: 39.99,
+                discount: 87,
+                gamesCount: 6,
+                image: "https://via.placeholder.com/400x200/8b0000/fff?text=Flash+Friday",
+                category: "limited-time",
+                timeLeft: "18 hours left",
+                features: ["6 Steam Games", "Limited Time", "Flash Deal"],
+                games: [
+                    "Retro Platformer Pack",
+                    "Indie Horror Collection",
+                    "Puzzle Adventure Set",
+                    "And 3 more..."
+                ]
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBundles(bundleData);
+        });
+
+        function loadBundles(bundles) {
+            const grid = document.getElementById('bundlesGrid');
+            grid.innerHTML = '';
+
+            bundles.forEach(bundle => {
+                const bundleCard = createBundleCard(bundle);
+                grid.appendChild(bundleCard);
+            });
+        }
+
+        function createBundleCard(bundle) {
+            const card = document.createElement('div');
+            card.className = 'bundle-card';
+            
+            const discountBadge = bundle.discount > 0 ? 
+                `<div class="discount-badge">-${bundle.discount}%</div>` : '';
+
+            card.innerHTML = `
+                ${discountBadge}
+                <div class="bundle-image">
+                    <img src="${bundle.image}" alt="${bundle.title}">
+                    <div class="time-left">${bundle.timeLeft}</div>
+                </div>
+                <div class="bundle-info">
+                    <h3 class="bundle-title">${bundle.title}</h3>
+                    <div class="bundle-features">
+                        ${bundle.features.map(feature => `<span class="feature-tag">${feature}</span>`).join('')}
+                    </div>
+                    <div class="bundle-games">
+                        <h4>Includes:</h4>
+                        <ul>
+                            ${bundle.games.map(game => `<li>${game}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="bundle-price">
+                        <span class="current-price">$${bundle.price}</span>
+                        ${bundle.originalPrice > 0 ? `<span class="original-price">$${bundle.originalPrice}</span>` : ''}
+                        <span class="games-count">${bundle.gamesCount} games</span>
+                    </div>
+                    <div class="bundle-actions">
+                        <button class="btn btn-primary btn-full" onclick="addBundleToCart(${bundle.id})">
+                            <i class="fas fa-cart-plus"></i> Add Bundle to Cart
+                        </button>
+                        <button class="btn btn-secondary" onclick="addBundleToWishlist(${bundle.id})">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function filterBundles(category) {
+            const filteredBundles = bundleData.filter(bundle => bundle.category === category);
+            loadBundles(filteredBundles);
+        }
+
+        function addBundleToCart(bundleId) {
+            alert(`Added bundle ${bundleId} to cart!`);
+        }
+
+        function addBundleToWishlist(bundleId) {
+            alert(`Added bundle ${bundleId} to wishlist!`);
+        }
+
+        function toggleAccountMenu() {
+            const menu = document.getElementById('accountMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            color: var(--text-primary);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            color: var(--primary-orange);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .bundle-categories {
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .container h2 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: var(--darker-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            border-color: var(--primary-orange);
+            transform: translateY(-5px);
+        }
+
+        .category-card i {
+            font-size: 3rem;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .category-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-card p {
+            color: var(--text-secondary);
+        }
+
+        .featured-bundles {
+            padding: 4rem 2rem;
+            background: var(--dark-bg);
+        }
+
+        .bundles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .bundle-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bundle-image {
+            position: relative;
+        }
+
+        .bundle-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .time-left {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--primary-orange);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .bundle-info {
+            padding: 1.5rem;
+        }
+
+        .bundle-title {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .bundle-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-tag {
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        .bundle-games {
+            margin-bottom: 1.5rem;
+        }
+
+        .bundle-games h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .bundle-games ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bundle-games li {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .bundle-price {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            color: var(--primary-orange);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .original-price {
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+
+        .games-count {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-left: auto;
+        }
+
+        .bundle-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .bundles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <style>
+        /* Login Button Styling */
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+            color: white;
+        }
+    </style>
+
+    <script>
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            if (searchTerm.trim()) {
+                window.location.href = `../index.html?search=${encodeURIComponent(searchTerm)}`;
+            }
+        }
+
+        // Handle Enter key in search
+        document.getElementById('searchInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>

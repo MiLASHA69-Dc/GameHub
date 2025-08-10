@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Setup - GameHub Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .setup-container {
+            background: #333;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            margin: 2rem;
+        }
+        
+        .setup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .setup-header h1 {
+            color: #ff8c00;
+            margin-bottom: 0.5rem;
+        }
+        
+        .setup-header p {
+            color: #ccc;
+        }
+        
+        .setup-button {
+            background: linear-gradient(135deg, #ff8c00 0%, #ff6b00 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .setup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+        
+        .setup-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .setup-output {
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            display: none;
+        }
+        
+        .success {
+            color: #4CAF50;
+        }
+        
+        .error {
+            color: #f44336;
+        }
+        
+        .warning {
+            color: #ff9800;
+        }
+        
+        .info {
+            color: #2196F3;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #333;
+            border-radius: 50%;
+            border-top-color: #ff8c00;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+        <div class="setup-header">
+            <h1>🎮 GameHub Database Setup</h1>
+            <p>Set up your database tables and initial data</p>
+        </div>
+        
+        <button id="setupBtn" class="setup-button" onclick="runSetup()">
+            🚀 Initialize Database
+        </button>
+        
+        <div id="setupOutput" class="setup-output"></div>
+    </div>
+
+    <script>
+        async function runSetup() {
+            const button = document.getElementById('setupBtn');
+            const output = document.getElementById('setupOutput');
+            
+            // Show loading state
+            button.innerHTML = '<span class="loading"></span>Setting up database...';
+            button.disabled = true;
+            output.style.display = 'block';
+            output.innerHTML = 'Starting database setup...\n';
+            
+            try {
+                const response = await fetch('setup_process.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    output.innerHTML += '\n✅ Database setup completed successfully!\n\n';
+                    output.innerHTML += result.message + '\n';
+                    output.innerHTML += '\n📋 Setup Summary:\n';
+                    output.innerHTML += '• Games table updated with all required fields\n';
+                    output.innerHTML += '• Game files table created for setup file storage\n';
+                    output.innerHTML += '• Admin users table created\n';
+                    output.innerHTML += '• Default admin user created (username: admin, password: admin123)\n';
+                    output.innerHTML += '\n🎯 You can now:\n';
+                    output.innerHTML += '• Go to admin/dashboard.html to start adding games\n';
+                    output.innerHTML += '• Login with admin/admin123 credentials\n';
+                    output.innerHTML += '• Upload game setup files up to 500MB\n';
+                    
+                    button.innerHTML = '✅ Setup Complete!';
+                    button.style.background = '#4CAF50';
+                } else {
+                    throw new Error(result.message || 'Setup failed');
+                }
+                
+            } catch (error) {
+                output.innerHTML += '\n❌ Error: ' + error.message + '\n';
+                button.innerHTML = '❌ Setup Failed - Try Again';
+                button.disabled = false;
+                button.style.background = '#f44336';
+                
+                setTimeout(() => {
+                    button.innerHTML = '🚀 Initialize Database';
+                    button.style.background = 'linear-gradient(135deg, #ff8c00 0%, #ff6b00 100%)';
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
